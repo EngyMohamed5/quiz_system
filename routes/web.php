@@ -28,7 +28,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-Route::resource('topics', TopicController::class);
+Route::resource('topics', TopicController::class)->middleware('admin');
 
 Route::get('/admin', [DashboardController::class, 'index'])
     ->name('admin.dashboard')
@@ -62,4 +62,3 @@ Route::get('/topics/{topic}', [QuizController::class, 'showQuizzesByTopic'])->na
 Route::get('/quiz/{quiz}', [QuizController::class, 'showQuiz'])->name('quiz.show');
 
 require __DIR__.'/auth.php';
-

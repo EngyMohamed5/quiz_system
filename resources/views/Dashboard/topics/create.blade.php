@@ -5,7 +5,7 @@
         @csrf
         <div class="mb-3">
             <label class="form-label">Name</label>
-            <input type="text" class="form-control" name="title" placeholder="Enter Topic Title " >
+            <input type="text" class="form-control" name="name" placeholder="Enter Topic Title " >
         </div>
         <button type="submit" class="btn btn-primary mt-3 form-control">ADD</button>
     </form>

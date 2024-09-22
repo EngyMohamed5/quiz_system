@@ -29,11 +29,11 @@ class TopicController extends Controller
     {
         try {
             $request->validate([
-                'title' => 'required|string|max:255|unique:topics,name', 
+                'name' => 'required|string|max:255|unique:topics,name',  
             ]);
 
             Topic::create([
-                'name' => $request['title'],
+                'name' => $request['name'],
             ]);
 
             Alert::success('Success!', 'Added successfully');
@@ -57,7 +57,7 @@ class TopicController extends Controller
      */
     public function edit(Topic $topic)
     {
-        return view('Dashboard.topics.edit', compact('topic')); 
+        return view('Dashboard.topics.update', compact('topic')); 
     }
 
     /**
@@ -67,10 +67,10 @@ class TopicController extends Controller
     {
         try {
             $request->validate([
-                'title' => 'required|string|max:255|unique:topics,name,' . $topic->id, 
+                'name' => 'required|string|max:255|unique:topics,name',  
             ]);
 
-            $topic->update(['name' => $request['title']]); 
+            $topic->update(['name' => $request['name']]); 
             Alert::success('Success!', 'Updated successfully');
         } catch (\Exception $e) {
             Alert::error('Error!', 'Failed to update');
