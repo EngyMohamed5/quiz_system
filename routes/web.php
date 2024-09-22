@@ -57,6 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
 require __DIR__ . '/auth.php';
 
 
@@ -64,3 +65,7 @@ Route::get('/topics/{topic}', [QuizController::class, 'showQuizzesByTopic'])->na
 Route::get('/quiz/{quiz}', [QuizController::class, 'showQuiz'])->name('quiz.show');
 
 require __DIR__ . '/auth.php';
+Route::get('/topics/{topic}', [QuizController::class, 'showQuizzesByTopic'])->name('quizzes.by_topic');
+Route::get('/quiz/{quiz}', [QuizController::class, 'showQuiz'])->name('quiz.show');
+
+require __DIR__.'/auth.php';
