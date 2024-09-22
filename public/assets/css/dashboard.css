@@ -1,0 +1,147 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* .admin {
+    background-color: #0099FF;
+    height: 100lh;
+    padding: 0em 2.2em;
+}
+
+.admin a {
+    color: white;
+}
+
+
+.admin a:hover {
+    color: #000080;
+}
+
+.admin .title {
+    font-size: 18px;
+    text-align: center;
+    padding-bottom: .3em;
+    border-bottom: solid #F5FFFA;
+    color: #000080;
+    font-weight: bold;
+    margin-top: 2em;
+
+}
+
+
+
+.admin .home {
+    margin-top: 3em;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    gap: .2em;
+}
+
+.admin p {
+    font-weight: bold;
+    color: #000080;
+    margin-right: 1em;
+}
+
+ */
+.admin_image img {
+    border-radius: 1em;
+    width: 100%;
+    margin-bottom: 5em;
+}
+
+.admin_image {
+    display: flex;
+    justify-content: center;
+    padding: 1em;
+    /* height: 25em; */
+    overflow: hidden;
+
+
+}
+
+.admin_prof {
+    font-size: 150px;
+}
+
+.status-pending {
+    color: orange;
+}
+
+.status-approved {
+    color: green;
+}
+
+.status-rejected {
+    color: red;
+}
+
+.btn-orange {
+    background-color: #ff8800;
+    color: white;
+    border: none;
+}
+
+.btn-orange:hover {
+    background-color: #ff7700;
+    color: white;
+}
+
+.user_image {
+    width: 1.5em;
+    height: 1.5em;
+}
+
+
+
+body {
+    background: #eee;
+}
+
+#side_nav {
+    background: #000;
+    min-width: 250px;
+    max-width: 250px;
+    transition: all 0.3s;
+}
+
+.content {
+    min-height: 100vh;
+    width: 100%;
+}
+
+hr.h-color {
+    background: #eee;
+}
+
+.sidebar li.active {
+    background: #eee;
+    border-radius: 8px;
+}
+
+.sidebar li.active a,
+.sidebar li.active a:hover {
+    color: #000;
+}
+
+.sidebar li a {
+    color: #fff;
+}
+
+@media(max-width: 767px) {
+    #side_nav {
+        margin-left: -250px;
+        position: absolute;
+        min-height: 100vh;
+        z-index: 1;
+
+    }
+
+    #side_nav.active {
+        margin-left: 0;
+    }
+
+}
