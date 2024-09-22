@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class PerformanceHistory extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'user_id',
+        'quiz_id',
+        'score',
+        'completion_time', 
+    ];
 }
