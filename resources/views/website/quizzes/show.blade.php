@@ -39,7 +39,6 @@
 
                     document.querySelector('form').submit();
                 }
-                console.log("lj");
                 timerElement.textContent = timeLeft;
                 timeLeft--;
             }, 1000);
