@@ -14,7 +14,7 @@
         @foreach($topics as $topic)
         <tr>
           <th scope="row">{{$topic->id}}</th>
-          <td>{{$topic->title}}</td>
+          <td>{{$topic->name}}</td>
           <td>
             <form action="{{ route('topics.destroy', $topic->id) }}" method="POST">
               @csrf
@@ -26,7 +26,6 @@
           </td>
           <td>
             <form action="{{ route('topics.edit', $topic->id) }}" method="GET">
-              @csrf
               <button type="submit" style="background: none; border: none; cursor: pointer;">
                 <i class="fa-regular fa-pen-to-square"></i>
               </button>
