@@ -22,7 +22,8 @@
 
 <body>
 
-    {{-- @include('sweetalert::alert') --}}
+    @include('sweetalert::alert')
+
     <div class="main-container d-flex ">
         <div class="sidebar" id="side_nav">
             <div class="header-box px-2 pt-3 pb-4 d-flex justify-content-between">
@@ -37,10 +38,53 @@
                         Dashboard</a>
                 </li>
 
+                {{-- topics --}}
 
+                <li class="text-decoration-none px-3 py-2 d-block text-primary">Topics</li>
+                <li class="{{Route::is('topics.create') ? 'active' : '' }}"><a href="{{route('topics.create')}}"
+                        class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
+                        <span><i class="fa-regular fa-square-plus"></i></i> Add</span>
+                    </a>
+                </li>
+                <li class="{{Route::is('topics.index') ? 'active' : '' }}"><a href="{{route('topics.index')}}"
+                        class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
+                        <span><i class="fal fa-comment"></i> Topics</span>
+                    </a>
+                </li>
 
+                {{-- admins --}}
+                <li class="text-decoration-none px-3 py-2 d-block text-primary">Admins</li>
 
-                <li class="text-decoration-none px-3 py-2 d-block text-primary">Category</li>
+                @if (Auth::user()->role === 'super_admin')
+                <li class="{{Route::is('admins.create') ? 'active' : '' }}">
+                    <a href="{{ route('admins.create') }}"
+                        class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
+                        <span><i class="fa-regular fa-square-plus"></i> Add</span>
+                    </a>
+                </li>
+                @endif
+
+                <li class="{{Route::is('admins.showall') ? 'active' : '' }}">
+                    <a href="{{ route('admins.showall') }}"
+                        class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
+                        <span>Admins</span>
+                    </a>
+                </li>
+
+                <li class="{{Route::is('users.showall') ? 'active' : '' }}">
+                    <a href="{{ route('users.showall') }}"
+                        class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
+                        <span>Users</span>
+                    </a>
+                </li>
+                <li class="{{Route::is('allusers.showall') ? 'active' : '' }}">
+                    <a href="{{ route('allusers.showall') }}"
+                        class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
+                        <span>All Users</span>
+                    </a>
+                </li>
+
+            </ul>
             </ul>
 
         </div>
@@ -52,16 +96,17 @@
 
                     </div>
 
-                    <div>
+                    <div class="px-5">
                         <ul class=" list-unstyled  pt-2 ">
                             <li class="nav-item dropdown ">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
-                                    {{ Auth::user()->name }}
                                     @if(Auth::user()->image)
                                     <img src="{{ asset('upload_images/' . Auth::user()->image) }}" alt="User Image"
                                         class="user_image rounded-circle">
                                     @endif
+                                    {{ Auth::user()->name }}
+
 
                                 </a>
                                 <ul class="dropdown-menu overflow-hidden">
