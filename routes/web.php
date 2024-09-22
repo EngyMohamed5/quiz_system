@@ -28,7 +28,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-Route::resource('topics', TopicController::class);
+Route::resource('topics', TopicController::class)->middleware('admin');
 
 Route::get('/admin', [DashboardController::class, 'index'])
     ->name('admin.dashboard')
