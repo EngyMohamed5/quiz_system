@@ -2,7 +2,7 @@
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
-            <div class="flex">
+            <div class="flex align-items-center">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
@@ -16,6 +16,29 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <!-- Topics Dropdown -->
+                    <div class="dropdown">
+                        <x-nav-link :active="request()->routeIs('quizzes.by_topic')" class=" dropdown-toggle" href="#" role="button" id="topicsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ __('Topics') }}
+                        </x-nav-link>
+                        
+                        <!-- Dropdown Menu -->
+                        <ul class="dropdown-menu" aria-labelledby="topicsDropdown">
+                            @foreach($topics as $topic)
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('quizzes.by_topic', $topic->id) }}">
+                                        {{ $topic->name }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+
+                
+
             </div>
 
             <!-- Settings Dropdown -->
