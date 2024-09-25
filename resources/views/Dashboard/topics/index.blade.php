@@ -39,14 +39,16 @@
           </td>
         </tr>
         @endforeach
-        @if ($topics->count()==0)
-        <div class="alert alert-warning mt-5" role="alert">
-          No Topics !
-        </div>
-        @endif
+     
       </tbody>
     </table>
     <button type="submit" class="btn btn-primary mt-3 form-control">ADD</button>
+    @if ($topics->count()==0)
+    <div class="alert alert-warning mt-5" role="alert">
+      No Topics !
+    </div>
+    @endif
   </form>
+
 
 </x-dashboard>

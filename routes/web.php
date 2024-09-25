@@ -32,7 +32,7 @@ Route::resource('topics', TopicController::class)->middleware('admin');
 
 Route::get('/admin', [DashboardController::class, 'index'])
     ->name('admin.dashboard')
-    ->middleware('auth');
+    ->middleware('admin');
 
 Route::post('users/search', [AdminController::class, 'SearchForUser'])
     ->name('users.search');
