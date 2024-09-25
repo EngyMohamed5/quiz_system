@@ -1,6 +1,6 @@
 <x-dashboard>
   @section('page_title', 'Topics')
-  <form action="{{route('topics.create')}}" method="GET" class=" w-75 container text-center mt-5">
+  <div class=" w-75 container text-center mt-5">
     <table class="table">
       <thead>
         <tr>
@@ -11,9 +11,9 @@
         </tr>
       </thead>
       <tbody>
-      @php
-      $countTopics=1;
-      @endphp
+        @php
+        $countTopics=1;
+        @endphp
         @foreach($topics as $topic)
         <tr>
           <th scope="row">{{$countTopics++}}</th>
@@ -23,7 +23,7 @@
               @csrf
               @method('DELETE')
               <button type="submit" style="background: none; border: none; cursor: pointer;">
-                <i class=" fa-regular fa-trash-can  text-danger "></i>
+                <i class="fa-regular fa-trash-can text-danger"></i>
               </button>
             </form>
 
@@ -39,16 +39,18 @@
           </td>
         </tr>
         @endforeach
-     
+
       </tbody>
     </table>
-    <button type="submit" class="btn btn-primary mt-3 form-control">ADD</button>
+    <form action="{{route('topics.create')}}" method="GET">
+      <button type="submit" class="btn btn-primary mt-3 form-control">ADD</button>
+    </form>
     @if ($topics->count()==0)
     <div class="alert alert-warning mt-5" role="alert">
       No Topics !
     </div>
     @endif
-  </form>
+  </div>
 
 
 </x-dashboard>
