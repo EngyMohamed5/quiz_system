@@ -5,8 +5,8 @@
 
         <div class="row">
             @forelse($quizzes as $quiz)
-            <div class="col-md-6 col-lg-3 mb-4" >
-                <div class="card shadow-sm" style="height:20em;overflow:hidden">
+            <div class="col-md-6 col-lg-4 mb-4" >
+                <div class="card shadow-sm m-2" style="height:20em;overflow:hidden">
                    
                     <div style="height:12em;overflow:hidden">
                         @if($quiz->image)
@@ -21,7 +21,17 @@
                             <a href="{{ route('quiz.show', $quiz->id) }}" class="text-dark text-decoration-none">{{ $quiz->title }}</a>
                         </h5>
                         <p class="card-text">{{ $quiz->description }}</p>
-                        <a href="{{ route('quiz.show', $quiz->id) }}" class="btn btn-primary">Start Quiz</a>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="{{ route('quiz.show', $quiz->id) }}" class="btn btn-primary">Start Quiz</a>
+                            @if ($quiz->time_limit)
+                            <div class="btn btn-warning text-dark" title="with time limit">
+                                <i class="fa-solid fa-stopwatch"></i>
+                            </div>
+                            @endif
+                           
+                        </div>
+                        
                     </div>
                 </div>
             </div>
