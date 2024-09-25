@@ -42,7 +42,7 @@ class QuizController extends Controller
               "questions.*.is_correct_number" => "required|integer|min:1|max:4",
               "created_by" => "required|integer",
           ]);
-
+//dd($request->image);
           DB::transaction(function () use ($request) {
               $quiz_data=[
                   "title"=>$request->title,
