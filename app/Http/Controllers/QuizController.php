@@ -30,7 +30,7 @@ class QuizController extends Controller
               "title" => "required|string|unique:quizzes",
               "description" => "required|string",
               'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-              "quize_type" => "required",
+              "quiz_type" => "required",
               "time_limit" => "required|integer",
               "topic_id" => "required|integer",
               "questions" => "required|array|min:1",
@@ -47,7 +47,7 @@ class QuizController extends Controller
               $quiz_data=[
                   "title"=>$request->title,
                   "description"=>$request->description,
-                  "quize_type"=>$request->quize_type,
+                  "quiz_type"=>$request->quize_type,
                   "time_limit"=>$request->time_limit,
                   "created_by"=>$request->created_by,
                   "topic_id"=>$request->topic_id,

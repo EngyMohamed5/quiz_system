@@ -12,11 +12,11 @@
 
         <div>
             <div class="form-check form-check-inline my-2">
-                <input class="form-check-input" type="radio" name="quize_type" id="inlineRadio2" value="once_attempt" checked>
+                <input class="form-check-input" type="radio" name="quiz_type" id="inlineRadio2" value="once_attempt" checked>
                 <label class="form-check-label" for="inlineRadio2">one attempt</label>
             </div>
             <div class="form-check form-check-inline me-5 my-2">
-                <input class="form-check-input" type="radio" name="quize_type" id="inlineRadio1" value="multiple_attempts">
+                <input class="form-check-input" type="radio" name="quiz_type" id="inlineRadio1" value="multiple_attempts">
                 <label class="form-check-label" for="inlineRadio1">multiple attempts</label>
             </div>
         </div>
