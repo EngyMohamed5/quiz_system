@@ -13,9 +13,10 @@ class NavbarComposer
     public function compose(View $view)
     {
         
-        $topics = Cache::remember('topics', 30 , function () {
-            return Topic::all();
-        });
+        // $topics = Cache::remember('topics', 30 , function () {
+        //     return Topic::all();
+        // });
+        $topics = Topic::all();
         $view->with('topics', $topics);
     }
 }
