@@ -91,6 +91,7 @@ return $topics;
     public function destroy(Topic $topic)
     {
         try {
+            
             $topic->delete();
             Alert::success('Success!', 'Deleted successfully');
         } catch (\Exception $e) {
