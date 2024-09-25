@@ -51,6 +51,13 @@ Route::resource('admins', AdminController::class)->only(['create', 'store'])->mi
 
 
 
+//Create Quiz
+Route::get('admin/createQuiz',[AdminController::class, 'createQuizPage'])
+    ->name('admin.CreateQuiz')->middleware('admin');
+Route::post("admin/storeQuiz",[QuizController::class, 'store'])->name('quiz.store')->middleware('admin');
+
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

@@ -11,9 +11,12 @@
         </tr>
       </thead>
       <tbody>
+      @php
+      $countTopics=1;
+      @endphp
         @foreach($topics as $topic)
         <tr>
-          <th scope="row">{{$topic->id}}</th>
+          <th scope="row">{{$countTopics++}}</th>
           <td>{{$topic->name}}</td>
           <td>
             <form action="{{ route('topics.destroy', $topic->id) }}" method="POST">

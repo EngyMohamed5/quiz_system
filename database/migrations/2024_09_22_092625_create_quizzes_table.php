@@ -21,7 +21,7 @@ return new class extends Migration
             $table->enum('quize_type', ['multiple_attempts', 'once_attempt'])->default('multiple_attempts');
             $table->integer('time_limit');
             $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('set null');
-            $table->foreignId('topic_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('topic_id')->constrained("topics")->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

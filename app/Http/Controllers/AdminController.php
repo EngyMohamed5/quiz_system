@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Topic;
 use App\Models\User;
 use App\Traits\Uploadimage;
 use Carbon\Carbon;
@@ -20,9 +21,13 @@ class AdminController extends Controller
     public function index()
     {
         //
-        
-    }
 
+    }
+    public function getAllTopics()
+    {
+        $topics = Topic::all();
+        return $topics;
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -198,4 +203,12 @@ class AdminController extends Controller
             return redirect()->back();
         }
     }
+
+    public function createQuizPage()
+    {
+        $topics=$this->getAllTopics();
+
+        return view("Dashboard.create_quiz",compact("topics"));
+    }
+
 }

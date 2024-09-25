@@ -15,8 +15,10 @@ class Quiz extends Model
         'time_limit',
         'topic_id',
         'created_by',
+        "quize_type"
     ];
-    
+
+
     public function topic()
     {
         return $this->belongsTo(Topic::class);

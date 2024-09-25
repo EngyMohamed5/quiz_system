@@ -8,9 +8,15 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class TopicController extends Controller
 {
-    public function index()
+
+    public function getAllTopics()
     {
         $topics = Topic::all();
+return $topics;
+    }
+    public function index()
+    {
+        $topics =$this->getAllTopics();
         return view('Dashboard.topics.index', compact('topics'));
     }
 
@@ -29,7 +35,7 @@ class TopicController extends Controller
     {
         try {
             $request->validate([
-                'name' => 'required|string|max:255|unique:topics,name',  
+                'name' => 'required|string|max:255|unique:topics,name',
             ]);
 
             Topic::create([
@@ -41,7 +47,7 @@ class TopicController extends Controller
             Alert::error('Error!', 'Failed to add this topic');
         }
 
-        return redirect()->route('topics.index'); 
+        return redirect()->route('topics.index');
     }
 
     /**
@@ -57,7 +63,7 @@ class TopicController extends Controller
      */
     public function edit(Topic $topic)
     {
-        return view('Dashboard.topics.update', compact('topic')); 
+        return view('Dashboard.topics.update', compact('topic'));
     }
 
     /**
@@ -67,16 +73,16 @@ class TopicController extends Controller
     {
         try {
             $request->validate([
-                'name' => 'required|string|max:255|unique:topics,name',  
+                'name' => 'required|string|max:255|unique:topics,name',
             ]);
 
-            $topic->update(['name' => $request['name']]); 
+            $topic->update(['name' => $request['name']]);
             Alert::success('Success!', 'Updated successfully');
         } catch (\Exception $e) {
             Alert::error('Error!', 'Failed to update');
         }
 
-        return redirect()->route('topics.index'); 
+        return redirect()->route('topics.index');
     }
 
     /**
@@ -91,6 +97,6 @@ class TopicController extends Controller
             Alert::error('Error!', 'Failed to delete this topic');
         }
 
-        return redirect()->route('topics.index'); 
+        return redirect()->route('topics.index');
     }
 }

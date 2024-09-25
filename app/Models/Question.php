@@ -11,11 +11,15 @@ class Question extends Model
     protected $fillable = [
         'quiz_id',
         'question_text',
-        'question_type', 
+        'question_type',
+        "image"
     ];
 
     public function options()
     {
         return $this->hasMany(Option::class);
+    }
+    public function quiz(){
+        return $this->belongsTo(Quiz::class);
     }
 }

@@ -5,11 +5,11 @@
         @method('put')
         <div class="mb-3">
             <label class="form-label">Name</label>
-            <input type="text" class="form-control" name="name" value="{{$topic->name}}">
+            <input type="text" class="form-control" name="name" value="{{$topic->name}}" autofocus>
         </div>
         <button type="submit" class="btn btn-primary mt-3 form-control">Update</button>
 
-        
+
     </form>
     <form action="{{ route('topics.destroy', $topic->id) }}" method="POST" class=" w-50 container text-center ">
         @csrf
