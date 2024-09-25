@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('page_title')</title>
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/icons/font/bootstrap-icons.css') }}" rel="stylesheet">
+{{--    <link href="{{ asset('assets/icons/font/bootstrap-icons.css') }}" rel="stylesheet">--}}
     <link href="{{ asset('assets/css/dashboard.css') }}" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -83,8 +83,14 @@
                         <span>All Users</span>
                     </a>
                 </li>
-
-            </ul>
+{{--                Quizzes    --}}
+                <li class="text-decoration-none px-3 py-2 d-block text-primary">Quizzes</li>
+                <li class="{{Route::is('admin.CreateQuiz') ? 'active' : '' }}">
+                    <a href="{{ route('admin.CreateQuiz') }}"
+                       class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
+                        <span>Create Quiz</span>
+                    </a>
+                </li>
             </ul>
 
         </div>
@@ -134,6 +140,7 @@
 </body>
 <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('assets/js/all.min.js') }}"></script>
-<script src="{{ asset('assets\js\jsfile.js') }}"></script>
+{{--<script src="{{ asset('assets\js\jsfile.js') }}"></script>--}}
 
+@yield("js_files")
 </html>

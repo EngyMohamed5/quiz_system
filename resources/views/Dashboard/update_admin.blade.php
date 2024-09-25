@@ -6,8 +6,8 @@
         @method('put')
         <div class="mb-3">
             <label class="form-label">Name</label>
-            <input type="text" class="form-control" name="name" value="{{$admin->name}}">
-         
+            <input type="text" class="form-control" name="name" value="{{$admin->name}}" autofocus>
+
         </div>
         <div class="mb-3">
             <label class="form-label">Email</label>
@@ -26,7 +26,7 @@
             <input class="form-check-input" type="radio" name="role" id="inlineRadio1" value="admin" {{$admin->role === 'admin' ? 'checked' : ''}}>
             <label class="form-check-label" for="inlineRadio1">Admin</label>
         </div>
-       
+
         @endif
         <button type="submit" class="btn btn-primary mt-3 form-control">Update</button>
     </form>

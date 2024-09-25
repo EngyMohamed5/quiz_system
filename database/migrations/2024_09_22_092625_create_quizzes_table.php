@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->text('image')->nullable();
-            $table->enum('quize_type', ['multiple_attempts', 'once_attempt'])->default('multiple_attempts');
+            $table->enum('quiz_type', ['multiple_attempts', 'once_attempt'])->default('multiple_attempts');
             $table->integer('time_limit');
             $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('set null');
-            $table->foreignId('topic_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('topic_id')->constrained("topics")->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
