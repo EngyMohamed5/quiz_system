@@ -97,6 +97,6 @@ return $topics;
             Alert::error('Error!', 'Failed to delete this topic');
         }
 
-        return redirect()->route('topics.index');
+        return redirect()->back();
     }
 }

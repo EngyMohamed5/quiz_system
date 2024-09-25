@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $topic = Topic::create(['name' => 'Science']);
-        $quiz = Quiz::create(['title' => 'Basic Physics', 'description' => 'Test your knowledge of physics.', 'time_limit' => 15, 'topic_id' => $topic->id, 'created_by' => 1]);
+        $quiz = Quiz::create(['title' => 'Basic Physics', 'description' => 'Test your knowledge of physics.','quize_type'=>'multiple_attempts','time_limit' => 15, 'topic_id' => $topic->id, 'created_by' => 1]);
 
         $question1 = Question::create(['quiz_id' => $quiz->id, 'question_text' => 'What is the speed of light?', 'question_type' => 'multiple_choice']);
         Option::create(['question_id' => $question1->id, 'option_text' => '300,000 km/s', 'is_correct' => true]);

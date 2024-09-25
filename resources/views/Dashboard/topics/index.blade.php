@@ -24,6 +24,7 @@
               @method('DELETE')
               <button type="submit" style="background: none; border: none; cursor: pointer;">
                 <i class=" fa-regular fa-trash-can  text-danger "></i>
+              </button>
             </form>
 
           </td>
@@ -40,7 +41,7 @@
         @endforeach
         @if ($topics->count()==0)
         <div class="alert alert-warning mt-5" role="alert">
-          No Categories !
+          No Topics !
         </div>
         @endif
       </tbody>
