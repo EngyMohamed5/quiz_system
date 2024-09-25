@@ -92,12 +92,13 @@ class TopicController extends Controller
      */
     public function destroy(Topic $topic)
     {
+        
         try {
-            $topic->forceDelete();
+            $topic->delete();
             Alert::success('Success!', 'Deleted successfully');
         } catch (\Exception $e) {
             Alert::error('Error!', 'Failed to delete this topic');
-            dd(0);
+           
         }
 
         return redirect()->route('topics.index');
