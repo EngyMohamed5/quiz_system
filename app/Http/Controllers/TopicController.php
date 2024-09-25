@@ -12,11 +12,11 @@ class TopicController extends Controller
     public function getAllTopics()
     {
         $topics = Topic::all();
-return $topics;
+        return $topics;
     }
     public function index()
     {
-        $topics =$this->getAllTopics();
+        $topics = $this->getAllTopics();
         return view('Dashboard.topics.index', compact('topics'));
     }
 
@@ -45,9 +45,11 @@ return $topics;
             Alert::success('Success!', 'Added successfully');
         } catch (\Exception $e) {
             Alert::error('Error!', 'Failed to add this topic');
-        }
 
+        }
         return redirect()->route('topics.index');
+
+        
     }
 
     /**
@@ -91,13 +93,13 @@ return $topics;
     public function destroy(Topic $topic)
     {
         try {
-            
-            $topic->delete();
+            $topic->forceDelete();
             Alert::success('Success!', 'Deleted successfully');
         } catch (\Exception $e) {
             Alert::error('Error!', 'Failed to delete this topic');
+            dd(0);
         }
 
-        return redirect()->back();
+        return redirect()->route('topics.index');
     }
 }

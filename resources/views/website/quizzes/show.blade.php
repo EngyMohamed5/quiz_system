@@ -2,9 +2,11 @@
     <h1>{{ $quiz->title }}</h1>
     <p>{{ $quiz->description }}</p>
 
+    @if ($quiz->time_limit)
     <div id="timer">
         Time left: <span id="time">{{ $quiz->time_limit * 60 }}</span> seconds
     </div>
+    @endif
 
     <form action="/submit-quiz" method="POST">
         @csrf
@@ -23,25 +25,30 @@
         @endforeach
 
         <button type="submit">Submit Quiz</button>
+        
     </form>
 
     
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            let timeLeft = {{ $quiz->time_limit * 60 }};
-    
-            const timerElement = document.getElementById('time');
-    
-            const timer = setInterval(function() {
-                if (timeLeft <= 0) {
-                    clearInterval(timer);
-                    alert("Time's up!");
+            if ( {{ $quiz->time_limit }}){
 
-                    document.querySelector('form').submit();
-                }
-                timerElement.textContent = timeLeft;
-                timeLeft--;
-            }, 1000);
+                let timeLeft = {{ $quiz->time_limit * 60 }};
+        
+                const timerElement = document.getElementById('time');
+        
+                const timer = setInterval(function() {
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        alert("Time's up!");
+
+                        document.querySelector('form').submit();
+                    }
+                    timerElement.textContent = timeLeft;
+                    timeLeft--;
+                }, 1000);
+            }
+            
         });
     </script>
 
