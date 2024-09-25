@@ -15,4 +15,6 @@ class Topic extends Model
     {
         return $this->hasMany(Quiz::class);
     }
+
+
 }
