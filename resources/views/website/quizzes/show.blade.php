@@ -4,13 +4,14 @@
         <h1 class="text-center mb-4">{{ $quiz->title }}</h1>
         {{-- <p class="lead text-center">{{ $quiz->description }}</p> --}}
 
-        {{-- @if ($quiz->time_limit)
-        <div class="alert alert-info text-center" id="timer">
+        @if ($quiz->time_limit)
+        {{-- <div class="alert alert-info text-center" id="timer">
             Time left: <span id="time">{{ $quiz->time_limit * 60 }}</span> seconds
-        </div>
-        @endif --}}
-
+        </div> --}}
         <livewire:counter-component :quizId="$quiz->id" />
+        @endif
+
+       
 
 
         <form action="/submit-quiz" method="POST">

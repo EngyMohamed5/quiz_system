@@ -1,4 +1,4 @@
-<div id="poll-container" wire:poll.1000ms="tick">
+<div id="poll-container" wire:poll.1000ms="tick" class=" sticky-top">
     <div class="alert alert-info text-center">
         Time Left: {{ floor($remainingTime / 60) }}:{{ str_pad($remainingTime % 60, 2, '0', STR_PAD_LEFT) }}
     </div>

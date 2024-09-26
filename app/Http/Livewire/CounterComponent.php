@@ -11,6 +11,7 @@ class CounterComponent extends Component
     public $timeLimit;
     public $quizId;
     public $remainingTime; 
+    
     public function mount($quizId)
     {
         $quiz = Quiz::findOrFail($quizId);
