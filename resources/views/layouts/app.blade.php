@@ -21,6 +21,12 @@
         <!-- Bootstrap Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://kit.fontawesome.com/a74f5560d6.js" crossorigin="anonymous"></script>
+
+        <!-- sweetalert2 -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        @livewireStyles
+       
         
     </head>
     <body class="font-sans antialiased">
@@ -41,5 +47,7 @@
                 {{ $slot }}
             </main>
         </div>
+        
+        @livewireScripts
     </body>
 </html>
