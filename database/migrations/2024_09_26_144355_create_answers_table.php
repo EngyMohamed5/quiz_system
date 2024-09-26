@@ -20,10 +20,11 @@ return new class extends Migration
             $table->foreignId('question_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('option_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->boolean('is_correct');
-            $table->integer('attempt_number');
+            $table->integer('attempt_number')->default(1); // Add this line
             $table->timestamps();
         });
     }
+    
 
     /**
      * Reverse the migrations.
