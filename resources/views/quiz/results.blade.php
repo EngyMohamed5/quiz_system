@@ -19,6 +19,7 @@
                         <th>User ID</th>
                         <th>Name</th>
                         <th>Score</th>
+                        <th>Attempt Number</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,6 +30,7 @@
                             <td>{{ $result->user_id }}</td>
                             <td>{{ $result->name }}</td>
                             <td>{{ $result->score }}%</td>
+                            <td>{{ $result->attempt_number }}</td>
                         </tr>
                     @endforeach
                 </tbody>

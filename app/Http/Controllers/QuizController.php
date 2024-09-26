@@ -94,6 +94,7 @@ class QuizController extends Controller
         $quizId = $request->input('quiz_id');
         $score = 0;
         $totalQuestions = 0;
+
     
        
         $questions = Question::where('quiz_id', $quizId)->get();
@@ -131,12 +132,16 @@ class QuizController extends Controller
       
         $percentageScore = ($totalQuestions > 0) ? ($score / $totalQuestions) * 100 : 0;
     
-        
+        $latestAttempt = PerformanceHistory::where('user_id', auth()->id())
+        ->where('quiz_id', $quizId)
+        ->max('attempt_number');
+        $newAttemptNumber = $latestAttempt ? $latestAttempt + 1 : 1;
+
         PerformanceHistory::create([
             'user_id' => $userId,
             'quiz_id' => $quizId,
             'score' =>  $percentageScore,
-            'attempt_number' => 1, 
+            'attempt_number' => $newAttemptNumber, 
         ]);
     
         
@@ -153,7 +158,7 @@ class QuizController extends Controller
         $userId = auth()->id();
     
        
-        $userResults = PerformanceHistory::select('performance_histories.user_id', 'users.name', 'performance_histories.score')
+        $userResults = PerformanceHistory::select('performance_histories.user_id', 'users.name', 'performance_histories.score','performance_histories.attempt_number')
             ->join('users', 'performance_histories.user_id', '=', 'users.id')
             ->where('performance_histories.user_id', $userId)
             ->get();
