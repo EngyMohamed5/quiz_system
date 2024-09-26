@@ -8,15 +8,14 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class CounterComponent extends Component
 {
-    public $timeLimit; // Time limit in seconds
+    public $timeLimit;
     public $quizId;
-    public $remainingTime; // Remaining time in seconds
-
+    public $remainingTime; 
     public function mount($quizId)
     {
         $quiz = Quiz::findOrFail($quizId);
-        $this->timeLimit = $quiz->time_limit * 60; // Convert minutes to seconds
-        $this->remainingTime = $this->timeLimit; // Initialize remaining time
+        $this->timeLimit = $quiz->time_limit * 60; 
+        $this->remainingTime = $this->timeLimit;
     }
 
     public function tick()
@@ -27,8 +26,12 @@ class CounterComponent extends Component
         } else {
             
             // return Redirect::route('quiz.completed', ['quizId' => $this->quizId]);
-            $this->emit('quizTimeEnded'); // Emit Livewire event when time is up
+            $this->emit('quizTimeEnded'); 
         }
+    }
+
+    public function submitQuiz(){
+       // submit logic
     }
 
     public function render()
