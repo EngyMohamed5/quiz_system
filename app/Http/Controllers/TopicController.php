@@ -9,15 +9,15 @@ use RealRashid\SweetAlert\Facades\Alert;
 class TopicController extends Controller
 {
 
-    public function getAllTopics()
-    {
-        $topics = Topic::all();
-        return $topics;
-    }
+    // public function getAllTopics()
+    // {
+    //     $topics = Topic::all();
+    //     return $topics;
+    // }
     public function index()
     {
-        $topics = $this->getAllTopics();
-        return view('Dashboard.topics.index', compact('topics'));
+       
+        return view('Dashboard.topics.index');
     }
 
     /**

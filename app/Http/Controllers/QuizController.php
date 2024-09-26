@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Traits\Uploadimage;
 use App\Traits\CheckFile;
+use RealRashid\SweetAlert\Facades\Alert;
+
 class QuizController extends Controller
 {
     use Uploadimage, CheckFile;
@@ -20,9 +22,23 @@ class QuizController extends Controller
         return view('website.quizzes.index', compact('topic', 'quizzes'));
     }
 
+
     public function showQuiz(Quiz $quiz)
     {
-        return view('website.quizzes.show', compact('quiz'));
+        if ($quiz->quiz_type == 'once_attempt') {
+        
+            $attempt_status = PerformanceHistory::where('quiz_id', $quiz->id)
+                                                ->where('user_id', auth()->id())
+                                                ->exists();
+    
+            if ($attempt_status) {
+                Alert::error('Oops!', 'You have already attempted this quiz.');
+                return redirect()->back();
+            } else {
+                return view('website.quizzes.show', compact('quiz'));
+            }
+        }
+        
     }
 
     public function store(Request $request)
