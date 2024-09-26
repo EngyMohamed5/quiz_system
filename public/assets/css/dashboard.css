@@ -4,96 +4,7 @@
     box-sizing: border-box;
 }
 
-/* .admin {
-    background-color: #0099FF;
-    height: 100lh;
-    padding: 0em 2.2em;
-}
 
-.admin a {
-    color: white;
-}
-
-
-.admin a:hover {
-    color: #000080;
-}
-
-.admin .title {
-    font-size: 18px;
-    text-align: center;
-    padding-bottom: .3em;
-    border-bottom: solid #F5FFFA;
-    color: #000080;
-    font-weight: bold;
-    margin-top: 2em;
-
-}
-
-
-
-.admin .home {
-    margin-top: 3em;
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    gap: .2em;
-}
-
-.admin p {
-    font-weight: bold;
-    color: #000080;
-    margin-right: 1em;
-}
-
- */
-.admin_image img {
-    border-radius: 1em;
-    width: 100%;
-    margin-bottom: 5em;
-}
-
-.admin_image {
-    display: flex;
-    justify-content: center;
-    padding: 1em;
-    /* height: 25em; */
-    overflow: hidden;
-
-
-}
-
-.admin_prof {
-    font-size: 150px;
-}
-
-.status-pending {
-    color: orange;
-}
-
-.status-approved {
-    color: green;
-}
-
-.status-rejected {
-    color: red;
-}
-
-.btn-orange {
-    background-color: #ff8800;
-    color: white;
-    border: none;
-}
-
-.btn-orange:hover {
-    background-color: #ff7700;
-    color: white;
-}
-
-.user_image {
-    width: 1.5em;
-    height: 1.5em;
-}
 
 
 
@@ -102,7 +13,7 @@ body {
 }
 
 #side_nav {
-    background: #000;
+    background: #1b1b1b;
     min-width: 250px;
     max-width: 250px;
     transition: all 0.3s;

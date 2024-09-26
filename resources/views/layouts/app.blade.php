@@ -16,10 +16,12 @@
 
         
         <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
 
         <!-- Bootstrap Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- fontawesome -->
         <script src="https://kit.fontawesome.com/a74f5560d6.js" crossorigin="anonymous"></script>
 
         <!-- sweetalert2 -->
