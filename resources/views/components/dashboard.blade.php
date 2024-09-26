@@ -110,6 +110,14 @@
                         <span>Create Quiz</span>
                     </a>
                 </li>
+                {{--                results    --}}
+                <li class="text-decoration-none px-3 py-2 d-block text-primary">results</li>
+                <li class="{{Route::is('quiz.showresults') ? 'active' : '' }}">
+                    <a href="{{ route('quiz.showresults') }}"
+                       class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
+                        <span>show results</span>
+                    </a>
+                </li>
             </ul>
 
         </div>

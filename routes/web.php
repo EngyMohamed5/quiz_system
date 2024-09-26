@@ -52,9 +52,9 @@ Route::resource('admins', AdminController::class)->only(['create', 'store'])->mi
 
 
 //Create Quiz
-Route::get('admin/createQuiz',[AdminController::class, 'createQuizPage'])
+Route::get('admin/createQuiz', [AdminController::class, 'createQuizPage'])
     ->name('admin.CreateQuiz')->middleware('admin');
-Route::post("admin/storeQuiz",[QuizController::class, 'store'])->name('quiz.store')->middleware('admin');
+Route::post("admin/storeQuiz", [QuizController::class, 'store'])->name('quiz.store')->middleware('admin');
 
 
 
@@ -68,4 +68,16 @@ Route::middleware('auth')->group(function () {
 Route::get('/topics/{topic}', [QuizController::class, 'showQuizzesByTopic'])->name('quizzes.by_topic');
 Route::get('/quiz/{quiz}', [QuizController::class, 'showQuiz'])->name('quiz.show');
 
-require __DIR__.'/auth.php';
+
+// score routes
+Route::get('/score', [QuizController::class, 'showResults'])->name('score.view');
+Route::post('/submit-quiz', [QuizController::class, 'submitQuiz'])->name('quiz.submit');
+//results
+Route::get('/quiz/results', [QuizController::class, 'showResults'])->name('quiz.results');
+//results-error-dashboard
+Route::get('/quiz/showresults', [QuizController::class, 'showdata'])
+    ->name('quiz.showresults');
+
+
+
+require __DIR__ . '/auth.php';
