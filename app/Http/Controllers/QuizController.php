@@ -22,11 +22,9 @@ class QuizController extends Controller
         return view('website.quizzes.index', compact('topic', 'quizzes'));
     }
 
-
     public function showQuiz(Quiz $quiz)
     {
         if ($quiz->quiz_type == 'once_attempt') {
-        
             $attempt_status = PerformanceHistory::where('quiz_id', $quiz->id)
                                                 ->where('user_id', auth()->id())
                                                 ->exists();
@@ -34,13 +32,12 @@ class QuizController extends Controller
             if ($attempt_status) {
                 Alert::error('Oops!', 'You have already attempted this quiz.');
                 return redirect()->back();
-            } else {
-                return view('website.quizzes.show', compact('quiz'));
             }
         }
-        
+    
+        return view('website.quizzes.show', compact('quiz'));
     }
-
+    
     public function store(Request $request)
     {
 

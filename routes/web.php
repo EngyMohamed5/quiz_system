@@ -20,12 +20,12 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
 });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->name('dashboard');
 
 
 Route::resource('topics', TopicController::class)->middleware('admin');
@@ -66,14 +66,14 @@ Route::middleware('auth')->group(function () {
 
 
 Route::get('/topics/{topic}', [QuizController::class, 'showQuizzesByTopic'])->name('quizzes.by_topic');
-Route::get('/quiz/{quiz}', [QuizController::class, 'showQuiz'])->name('quiz.show');
+Route::get('/quiz/{quiz}', [QuizController::class, 'showQuiz'])->name('quiz.show')->middleware('auth');
 
 
 // score routes
 Route::get('/score', [QuizController::class, 'showResults'])->name('score.view');
 Route::post('/submit-quiz', [QuizController::class, 'submitQuiz'])->name('quiz.submit');
 //results
-Route::get('/quiz/results', [QuizController::class, 'showResults'])->name('quiz.results');
+Route::get('/quiz/results', [QuizController::class, 'showResults'])->name('quiz.results')->middleware('auth');
 //results-error-dashboard
 Route::get('/quiz/showresults', [QuizController::class, 'showdata'])
     ->name('quiz.showresults');

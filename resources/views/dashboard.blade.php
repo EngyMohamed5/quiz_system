@@ -1,27 +1,22 @@
 <x-app-layout>
-    {{-- <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot> --}}
-
-    
     <!-- Hero Section with Background Image and Gradient Overlay -->
-    <section class="hero-section position-relative text-white text-center py-5" style="background-image: url('https://source.unsplash.com/1600x900/?quiz,education'); background-size: cover; background-position: center;">
-        <div class="overlay position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0, 0, 0, 0.6);"></div>
-        <div class="container position-relative z-1">
-            <h1 class="display-3 fw-bold">Welcome to the Online Quiz System</h1>
-            <p class="lead mb-4">Enhance your skills and knowledge with exciting quizzes on various topics!</p>
-            <a href="#" class="btn btn-lg btn-outline-light px-4 py-3">Start a Quiz Now</a>
+    <section class="hero-section bg-info">
+        <div class="overlay position-absolute top-0 start-0 w-100 h-100"></div>
+        <div class="container1 position-relative z-1 text-center text-white py-5">
+            <h1 class="display-4 fw-bold"><span>Welcome to our </span><br>  Online Quiz Platform </h1>
+            <p class="lead my-5">Enhance your skills and challenge your abilities with exciting quizzes on a wide range of topics !</p>
+            <a href="#" class="btn btn-lg btn-outline-light">Start a Quiz Now</a>
         </div>
+        
     </section>
 
-    <!-- Features Section with Icons and Shadows -->
+    <!-- Features Section with Icons and Hover Effects -->
     <section class="features-section py-5">
         <div class="container">
+            <h2 class="text-center mb-4">Why Choose Our Quiz Platform?</h2>
             <div class="row text-center">
                 <div class="col-lg-4 mb-4">
-                    <div class="card shadow-sm border-0">
+                    <div class="card shadow-sm border-0 transition-hover">
                         <div class="card-body">
                             <div class="icon mb-3">
                                 <i class="fas fa-chart-line fa-3x text-primary"></i>
@@ -32,7 +27,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 mb-4">
-                    <div class="card shadow-sm border-0">
+                    <div class="card shadow-sm border-0 transition-hover">
                         <div class="card-body">
                             <div class="icon mb-3">
                                 <i class="fas fa-book-open fa-3x text-success"></i>
@@ -43,7 +38,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 mb-4">
-                    <div class="card shadow-sm border-0">
+                    <div class="card shadow-sm border-0 transition-hover">
                         <div class="card-body">
                             <div class="icon mb-3">
                                 <i class="fas fa-stopwatch fa-3x text-warning"></i>
@@ -58,7 +53,7 @@
     </section>
 
     <!-- Call to Action Section with Gradient Background -->
-    <section class="cta-section text-center py-5 text-white" style="background: linear-gradient(135deg, #007bff 0%, #6c63ff 100%);">
+    <section class="cta-section text-center py-5 text-white">
         <div class="container">
             <h2 class="display-5 fw-bold mb-4">Ready to Test Your Knowledge?</h2>
             <p class="lead">Sign up or log in to take a quiz and track your progress!</p>
@@ -78,6 +73,4 @@
             </p>
         </div>
     </footer>
-
-   
 </x-app-layout>
