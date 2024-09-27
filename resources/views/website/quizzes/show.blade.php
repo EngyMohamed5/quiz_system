@@ -63,7 +63,7 @@
         <livewire:counter-component :quizId="$quiz->id" />
         @endif
 
-        <form action="/submit-quiz" method="POST">
+        <form action="{{ route('quiz.submit') }}" method="POST" id="quizForm">
             <input type="hidden" name="quiz_id" value="{{ $quiz->id }}">
             @csrf
 

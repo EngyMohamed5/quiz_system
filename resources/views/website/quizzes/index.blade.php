@@ -26,7 +26,7 @@
         <div class="row">
             @forelse($quizzes as $quiz)
             <div class="col-md-6 col-lg-4 mb-4" >
-                <div class="card shadow-sm m-2" style="height:20em;overflow:hidden">
+                <div class="quiz-card card shadow-sm m-2" style="height:20em;overflow:hidden">
                    
                     <div class="imgquiz">
                         @if($quiz->image)

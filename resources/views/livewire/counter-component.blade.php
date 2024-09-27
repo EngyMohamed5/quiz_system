@@ -20,7 +20,7 @@
                 allowEnterKey: false
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Livewire.emit('submitQuiz');
+                    document.getElementById('quizForm').submit();
                 }
             });
         });

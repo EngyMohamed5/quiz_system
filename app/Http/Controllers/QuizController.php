@@ -160,10 +160,18 @@ class QuizController extends Controller
         $userId = auth()->id();
     
        
-        $userResults = PerformanceHistory::select('performance_histories.user_id', 'users.name', 'performance_histories.score','performance_histories.attempt_number')
-            ->join('users', 'performance_histories.user_id', '=', 'users.id')
-            ->where('performance_histories.user_id', $userId)
-            ->get();
+        $userResults = PerformanceHistory::select(
+            'performance_histories.user_id', 
+            'users.name', 
+            'quizzes.title',
+            'performance_histories.score',
+            'performance_histories.attempt_number',
+            
+        )
+        ->join('users', 'performance_histories.user_id', '=', 'users.id')
+        ->join('quizzes', 'performance_histories.quiz_id', '=', 'quizzes.id') 
+        ->where('performance_histories.user_id', $userId)
+        ->get();
     
         
         $score = $request->input('score');

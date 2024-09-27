@@ -10,6 +10,7 @@
                     <th>User ID</th>
                     <th>Username</th>
                     <th>Score</th>
+                    
                 </tr>
             </thead>
             <tbody>

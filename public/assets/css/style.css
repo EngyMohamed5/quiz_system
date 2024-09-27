@@ -10,16 +10,16 @@ body {
     width: 100%;
     transition-duration: 2s
 }
-.card{
+.quiz-card{
     transition-duration: 1s
     
 }
-.card:hover{
+.quiz-card:hover{
 
     transform: translatey(-.5em)
   
 }
-.card:hover .imgquiz{       
+.quiz-card:hover .imgquiz{       
     width: 105%;  
 }
 

@@ -18,17 +18,19 @@
                         <th>#</th>
                         <th>User ID</th>
                         <th>Name</th>
+                        <th>Quiz Title </th>
                         <th>Score</th>
                         <th>Attempt Number</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @php $counter = 1; @endphp
+                    {{-- @php $counter = 1; @endphp --}}
                     @foreach($userResults as $result)
                         <tr>
-                            <td>{{ $counter++ }}</td>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $result->user_id }}</td>
                             <td>{{ $result->name }}</td>
+                            <td>{{ $result->title }}</td>
                             <td>{{ $result->score }}%</td>
                             <td>{{ $result->attempt_number }}</td>
                         </tr>
