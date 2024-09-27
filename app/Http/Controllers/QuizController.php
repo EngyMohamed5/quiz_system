@@ -24,17 +24,6 @@ class QuizController extends Controller
 
     public function showQuiz(Quiz $quiz)
     {
-        if ($quiz->quiz_type == 'once_attempt') {
-            $attempt_status = PerformanceHistory::where('quiz_id', $quiz->id)
-                                                ->where('user_id', auth()->id())
-                                                ->exists();
-    
-            if ($attempt_status) {
-                Alert::error('Oops!', 'You have already attempted this quiz.');
-                return redirect()->back();
-            }
-        }
-    
         return view('website.quizzes.show', compact('quiz'));
     }
     

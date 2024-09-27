@@ -1,5 +1,25 @@
 <x-app-layout>
 
+    {{-- <style>
+        
+        .imgcontainer::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0;
+            height:12em;
+            background-color: #ededed2e;
+            
+            transition: 0.3s;
+        }
+        .card:hover .imgcontainer::before {
+            width: 100%;
+            
+        }  
+        
+    </style> --}}
+    
     <div class="container my-5">
         <h1 class="text-center mb-4">Quizzes on {{ $topic->name }}</h1>
 
@@ -8,7 +28,7 @@
             <div class="col-md-6 col-lg-4 mb-4" >
                 <div class="card shadow-sm m-2" style="height:20em;overflow:hidden">
                    
-                    <div style="height:12em;overflow:hidden">
+                    <div class="imgquiz">
                         @if($quiz->image)
                         <img src="{{ asset('upload_images/' . $quiz->image) }}" class="card-img-top" alt="{{ $quiz->title }}">
                         @else
