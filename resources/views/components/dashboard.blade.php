@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('page_title')</title>
-    
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
+         
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -23,7 +23,7 @@
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
 
-    
+
 
 
 </head>
@@ -45,13 +45,13 @@
                     </span>
                     <span class=" mx-3 text-light">
                         Quizzo
-                    </span>   
+                    </span>
                 </h1>
 
             </div>
 
             <ul class="list-unstyled px-2">
-                
+
                 <li  class="{{Route::is('admin.dashboard') ? 'active' : '' }}" >
                     <a href="{{ route('admin.dashboard') }}" class="text-decoration-none px-3 py-2 d-block"><i class="fa-solid fa-house"></i>
                         Dashboard</a>
@@ -110,6 +110,14 @@
                         <span>Create Quiz</span>
                     </a>
                 </li>
+
+                <li class="{{Route::is('quiz.index') ? 'active' : '' }}">
+                    <a href="{{ route('quiz.index') }}"
+                       class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
+                        <span>All Quiz</span>
+                    </a>
+                </li>
+
                 {{--                results    --}}
                 <li class="text-decoration-none px-3 py-2 d-block text-primary">results</li>
                 <li class="{{Route::is('quiz.showresults') ? 'active' : '' }}">
@@ -130,7 +138,7 @@
                     </div>
 
                     <div class="p-2 ">
-                        
+
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
                             <x-dropdown align="right" width="48">
                                 <x-slot name="trigger">
@@ -152,16 +160,16 @@
                                         </div>
                                     </button>
                                 </x-slot>
-            
+
                                 <x-slot name="content">
                                     <x-dropdown-link :href="route('profile.edit')">
                                         {{ __('Profile') }}
                                     </x-dropdown-link>
-            
+
                                     <!-- Authentication -->
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
-            
+
                                         <x-dropdown-link :href="route('logout')"
                                                 onclick="event.preventDefault();
                                                             this.closest('form').submit();">
