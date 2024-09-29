@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Http\ViewComposers\NavbarComposer;
+use App\View\Components\Footer;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -27,5 +29,6 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         View::composer('*', NavbarComposer::class);
+        Blade::component('footer', Footer::class);
     }
 }

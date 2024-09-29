@@ -20,12 +20,12 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
 });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->name('dashboard');
 
 
 Route::resource('topics', TopicController::class)->middleware('admin');
@@ -52,9 +52,9 @@ Route::resource('admins', AdminController::class)->only(['create', 'store'])->mi
 
 
 //Create Quiz
-Route::get('admin/createQuiz',[AdminController::class, 'createQuizPage'])
+Route::get('admin/createQuiz', [AdminController::class, 'createQuizPage'])
     ->name('admin.CreateQuiz')->middleware('admin');
-Route::post("admin/storeQuiz",[QuizController::class, 'store'])->name('quiz.store')->middleware('admin');
+Route::post("admin/storeQuiz", [QuizController::class, 'store'])->name('quiz.store')->middleware('admin');
 
 
 
@@ -66,6 +66,18 @@ Route::middleware('auth')->group(function () {
 
 
 Route::get('/topics/{topic}', [QuizController::class, 'showQuizzesByTopic'])->name('quizzes.by_topic');
-Route::get('/quiz/{quiz}', [QuizController::class, 'showQuiz'])->name('quiz.show');
+Route::get('/quiz/{quiz}', [QuizController::class, 'showQuiz'])->name('quiz.show')->middleware(['auth','check.quiz.attempt']);
 
-require __DIR__.'/auth.php';
+
+// score routes
+Route::get('/score', [QuizController::class, 'showResults'])->name('score.view');
+Route::post('/submit-quiz', [QuizController::class, 'submitQuiz'])->name('quiz.submit');
+//results
+Route::get('/quiz/results', [QuizController::class, 'showResults'])->name('quiz.results')->middleware('auth');
+//results-error-dashboard
+Route::get('/quiz/showresults', [QuizController::class, 'showdata'])
+    ->name('quiz.showresults');
+
+
+
+require __DIR__ . '/auth.php';

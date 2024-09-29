@@ -1,56 +1,104 @@
-<x-app-layout>
-    <h1>{{ $quiz->title }}</h1>
-    <p>{{ $quiz->description }}</p>
+{{-- <x-app-layout>
 
-    @if ($quiz->time_limit)
-    <div id="timer">
-        Time left: <span id="time">{{ $quiz->time_limit * 60 }}</span> seconds
-    </div>
-    @endif
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">{{ $quiz->title }}</h1>
+        {{-- <p class="lead text-center">{{ $quiz->description }}</p> --}}
 
-    <form action="/submit-quiz" method="POST">
-        @csrf
+        {{-- @if ($quiz->time_limit) --}}
+        {{-- <div class="alert alert-info text-center" id="timer">
+            Time left: <span id="time">{{ $quiz->time_limit * 60 }}</span> seconds
+        </div>
+        @endif --}}
+{{-- 
+        <livewire:counter-component :quizId="$quiz->id" />
+        @endif
 
-        @foreach($quiz->questions as $question)
-            <div class="question">
-                <p>{{ $question->question_text }}</p>
-                
-                @foreach($question->options as $option)
-                    <div>
-                        <input type="radio" name="question_{{ $question->id }}" value="{{ $option->id }}">
-                        <label>{{ $option->option_text }}</label>
+       
+
+
+        <form action="/submit-quiz" method="POST">
+            @csrf
+
+            <div class="row">
+                @foreach($quiz->questions as $question)
+                <div class="col-md-12 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                                   
+                            @if(!empty($question->image))
+                            <div class="mb-3" style="height: 20em;">
+                                <img src="{{ asset('upload_images/' . $question->image) }}" class="img-fluid mt-3 h-100 " alt="Question Image" >
+                            </div>
+                            @endif
+                            <p class="card-text font-weight-bold">{{ $loop->iteration }}. {{ $question->question_text }}</p>
+
+                            @foreach($question->options as $option)
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="question_{{ $question->id }}" id="option_{{ $option->id }}" value="{{ $option->id }}">
+                                <label class="form-check-label" for="option_{{ $option->id }}">
+                                    {{ $option->option_text }}
+                                </label>
+                            </div>
+                            @endforeach
+                        </div>
                     </div>
+                </div>
                 @endforeach
             </div>
-        @endforeach
 
-        <button type="submit">Submit Quiz</button>
-        
-    </form>
-
+            <div class="text-center pb-4">
+                <button type="submit" class="btn btn-primary btn-lg mt-4">Submit Quiz</button>
+            </div>
+        </form> 
+    </div>
     
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            if ( {{ $quiz->time_limit }}){
+</x-app-layout> --}} 
+<x-app-layout>
 
-                let timeLeft = {{ $quiz->time_limit * 60 }};
-        
-                const timerElement = document.getElementById('time');
-        
-                const timer = setInterval(function() {
-                    if (timeLeft <= 0) {
-                        clearInterval(timer);
-                        alert("Time's up!");
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">{{ $quiz->title }}</h1>
+        {{-- <p class="lead text-center">{{ $quiz->description }}</p> --}}
 
-                        document.querySelector('form').submit();
-                    }
-                    timerElement.textContent = timeLeft;
-                    timeLeft--;
-                }, 1000);
-            }
-            
-        });
-    </script>
+        @if ($quiz->time_limit)
+        <livewire:counter-component :quizId="$quiz->id" />
+        @endif
+
+        <form action="{{ route('quiz.submit') }}" method="POST" id="quizForm">
+            <input type="hidden" name="quiz_id" value="{{ $quiz->id }}">
+            @csrf
 
 
+            <div class="row">
+                @foreach($quiz->questions as $question)
+                <div class="col-md-12 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                                   
+                            @if(!empty($question->image))
+                            <div class="mb-3" style="height: 20em;">
+                                <img src="{{ asset('upload_images/' . $question->image) }}" class="img-fluid mt-3 h-100 " alt="Question Image" >
+                            </div>
+                            @endif
+                            <p class="card-text font-weight-bold">{{ $loop->iteration }}. {{ $question->question_text }}</p>
+
+                            @foreach($question->options as $option)
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="question_{{ $question->id }}" id="option_{{ $option->id }}" value="{{ $option->id }}">
+                                <label class="form-check-label" for="option_{{ $option->id }}">
+                                    {{ $option->option_text }}
+                                </label>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+
+            <div class="text-center pb-4">
+                <button type="submit" class="btn btn-primary btn-lg mt-4">Submit Quiz</button>
+            </div>
+        </form> 
+    </div>
+    
 </x-app-layout>

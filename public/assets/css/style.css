@@ -1,0 +1,92 @@
+/* General Styles */
+body {
+    background-color: #F9F9F9;
+    
+}
+
+.imgquiz{
+    height:12em;
+    overflow:hidden;
+    width: 100%;
+    transition-duration: 2s
+}
+.quiz-card{
+    transition-duration: 1s
+    
+}
+.quiz-card:hover{
+
+    transform: translatey(-.5em)
+  
+}
+.quiz-card:hover .imgquiz{       
+    width: 105%;  
+}
+
+.hero-section {
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    color: #ffffff;
+
+    background-image:  linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)) , url("https://img.freepik.com/free-photo/front-view-kid-cheating-school_23-2150104957.jpg?t=st=1727394624~exp=1727398224~hmac=bd992974334fc42f034742ab781337d05bd5577a45d5cc598405aeeb04053ad5&w=996");
+    overflow: hidden;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    height: 90vh;
+    z-index: 1;
+    
+}
+
+.container1{
+    z-index: -1;
+}
+
+.hero-section h1 {
+    font-size: 4rem; 
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+}
+.hero-section h1 span{
+    font-size: 2.3rem;  
+
+}
+
+.hero-section p {
+    max-width: 30em;
+    font-size: 1.2rem; 
+    color: #ddd; 
+}
+
+
+
+.transition-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.transition-hover:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+
+.cta-section {
+    background-color: #222;
+}
+
+
+
+footer {
+    background-color: #222;
+}
+
+/* @media (max-width: 768px) {
+    .hero-section {
+        padding: 60px 0;
+    }
+} */

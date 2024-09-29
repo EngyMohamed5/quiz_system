@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('performance_history', function (Blueprint $table) {
+        Schema::create('performance_histories', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('quiz_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
@@ -29,7 +29,7 @@ return new class extends Migration
      * @return void
      */
     public function down()
-    {
-        Schema::dropIfExists('performance_histories');
-    }
+{
+    Schema::dropIfExists('performance_histories'); // Ensure the name matches here
+}
 };

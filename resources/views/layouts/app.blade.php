@@ -7,6 +7,8 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
+        <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -16,14 +18,24 @@
 
         
         <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
 
         <!-- Bootstrap Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- fontawesome -->
         <script src="https://kit.fontawesome.com/a74f5560d6.js" crossorigin="anonymous"></script>
+
+        <!-- sweetalert2 -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        @livewireStyles
+       
+       
         
     </head>
     <body class="font-sans antialiased">
+        @include('sweetalert::alert')
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
             @include('layouts.navigation')
 
@@ -41,5 +53,8 @@
                 {{ $slot }}
             </main>
         </div>
+        
+        @livewireScripts
     </body>
+    <x-footer />
 </html>
