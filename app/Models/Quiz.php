@@ -16,7 +16,7 @@ class Quiz extends Model
         'topic_id',
         'created_by',
         "image",
-        "quize_type"
+        "quiz_type"
     ];
 
 
