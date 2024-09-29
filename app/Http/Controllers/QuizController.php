@@ -63,7 +63,6 @@ class QuizController extends Controller
               $quiz= Quiz::create($quiz_data);
 
               foreach ($request->questions as $question_to_store) {
-//                  dd($question_to_store);
                   $question_data=[
                       "question_text"=>$question_to_store['text'],
                       "question_type"=>$question_to_store['type'],
@@ -80,8 +79,11 @@ class QuizController extends Controller
                   }
               }
           });
+          alert()->success('Success!', 'Quiz added successfully');
+          return redirect()->route('quiz.index');
       }catch (\Exception $e){
-          return $e->getMessage();
+          alert()->error('Oops!', 'Failed to add quiz! Check your fields and try again');
+          return redirect()->back();
       }
 
 
