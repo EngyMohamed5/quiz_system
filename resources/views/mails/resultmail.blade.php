@@ -19,6 +19,7 @@
             border: 1px solid #ddd;
             padding: 8px;
         }
+        
 
         .bg-success {
             background-color: #28a745 !important;
@@ -34,12 +35,11 @@
             color: #6c757d !important;
         }
 
-        p,
-        h4 {
+        p{
             text-align: center;
             padding: 0.5em;
             margin: 0;
-            width: 100%;
+            width: 80%;
         }
 
         h1 {
@@ -88,7 +88,7 @@
     </table>
 
     <p>Thank you for taking the quiz!</p>
-    <p>Regards,</p>
+    <span>Regards,</span>
     <h4>{{ config('app.name') }}</h4>
 </body>
 
