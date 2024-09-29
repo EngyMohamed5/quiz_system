@@ -93,14 +93,14 @@
 
     <template id="true-false-question">
         <div>
-           <div class="d-flex gap-2 flex-wrap">
+           <div class="d-flex gap-2 flex-wrap" >
                <div class="form-group my-2 ">
-                   <label>Option <span class="option-number">1</span>:</label>
-                   <input type="text" name="questions[index][options][]" class="form-control" value="True" readonly>
+{{--                   <label>Option <span class="option-number">1</span>:</label>--}}
+                   <input type="hidden" name="questions[index][options][]" class="form-control" value="True" readonly>
                </div>
                <div class="form-group my-2 ">
-                   <label>Option <span class="option-number">2</span>:</label>
-                   <input type="text" name="questions[index][options][]" class="form-control" value="False" readonly>
+{{--                   <label>Option <span class="option-number">2</span>:</label>--}}
+                   <input type="hidden" name="questions[index][options][]" class="form-control" value="False" readonly>
                </div>
            </div>
             <div class="form-group my-2 ">

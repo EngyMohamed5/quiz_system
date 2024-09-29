@@ -42,6 +42,7 @@ hr.h-color {
     color: #fff;
 }
 
+
 @media(max-width: 767px) {
     #side_nav {
         margin-left: -250px;

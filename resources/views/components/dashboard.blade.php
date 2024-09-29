@@ -9,7 +9,7 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-         
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -99,7 +99,7 @@
                 <li class="{{Route::is('allusers.showall') ? 'active' : '' }}">
                     <a href="{{ route('allusers.showall') }}"
                         class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
-                        <span>All Users</span>
+                        <span>All</span>
                     </a>
                 </li>
             {{--            Quizzes    --}}
@@ -119,11 +119,11 @@
                 </li>
 
                 {{--                results    --}}
-                <li class="text-decoration-none px-3 py-2 d-block text-primary">results</li>
+                <li class="text-decoration-none px-3 py-2 d-block text-primary">Results</li>
                 <li class="{{Route::is('quiz.showresults') ? 'active' : '' }}">
                     <a href="{{ route('quiz.showresults') }}"
                        class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
-                        <span>show results</span>
+                        <span>Show Results</span>
                     </a>
                 </li>
             </ul>
