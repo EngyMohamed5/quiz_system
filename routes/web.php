@@ -5,14 +5,11 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\QuizController;
-<<<<<<< HEAD
+
 use App\Mail\AnswerMail;
 use Illuminate\Support\Facades\Mail;
-=======
 use App\Http\Controllers\QuestionController;
->>>>>>> 60df7a1141e54eba36e8ccbb173b133d7c0a9ad7
 use Illuminate\Support\Facades\Route;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
