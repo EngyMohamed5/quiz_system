@@ -5,8 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\QuizController;
-use App\Mail\AnswerMail;
-use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -24,7 +23,6 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 Route::get('/', function () {
     return view('dashboard');
 });
-
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -59,6 +57,22 @@ Route::get('admin/createQuiz', [AdminController::class, 'createQuizPage'])
     ->name('admin.CreateQuiz')->middleware('admin');
 Route::post("admin/storeQuiz", [QuizController::class, 'store'])->name('quiz.store')->middleware('admin');
 
+
+
+/*....................................................................... */
+//quiz admin update  delete
+Route::get('admin/quizzes', [QuizController::class, 'index'])->name('quiz.index');
+Route::delete('admin/quizzes/{quiz}', [QuizController::class, 'destroy'])->name('quiz.delete');
+Route::get('admin/quizzes/{quiz}/questions', [QuestionController::class, 'index'])->name('questions.index');
+Route::resource('admin.quizzes.questions', QuestionController::class)->parameters([
+    'questions' => 'question'
+]);
+Route::get('admin/quizzes/{quiz}/questions/{question}', [QuestionController::class, 'show'])->name('questions.show'); // Show a specific question
+Route::get('admin/quizzes/{quiz}/questions/{question}/edit', [QuestionController::class, 'edit'])->name('questions.edit');
+Route::put('admin/quizzes/{quiz}/questions/{question}', [QuestionController::class, 'update'])->name('questions.update');
+Route::delete('quizzes/{quiz}/questions/{question}', [QuestionController::class, 'destroy'])->name('questions.destroy');
+
+/*....................................................................... */
 
 
 Route::middleware('auth')->group(function () {
