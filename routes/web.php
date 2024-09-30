@@ -8,10 +8,8 @@ use App\Http\Controllers\QuizController;
 
 use App\Mail\AnswerMail;
 use Illuminate\Support\Facades\Mail;
-
 use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
