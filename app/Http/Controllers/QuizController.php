@@ -52,7 +52,7 @@ class QuizController extends Controller
               $quiz_data=[
                   "title"=>$request->title,
                   "description"=>$request->description,
-                  "quiz_type"=>$request->quize_type,
+                  "quiz_type"=>$request->quiz_type,
                   "time_limit"=>$request->time_limit,
                   "created_by"=>$request->created_by,
                   "topic_id"=>$request->topic_id,
