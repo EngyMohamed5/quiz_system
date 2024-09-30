@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 
+
+use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Auth\ResendVerificationEmailController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,7 +32,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->name('dashboard');
+})->name('dashboard')->middleware(['auth', 'verified']);
 
 
 Route::resource('topics', TopicController::class)->middleware('admin');
@@ -99,5 +102,13 @@ Route::get('/quiz/showresults', [QuizController::class, 'showdata'])
     ->name('quiz.showresults');
 
 
-
+    Route::get('/email/verify', function () {
+        return view('auth.verify-email');
+    })->middleware('auth')->name('verification.notice');
+    
+    Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
+        ->middleware(['auth', 'signed'])->name('verification.verify');
+    
+    Route::post('/email/resend', [ResendVerificationEmailController::class, '__invoke'])
+        ->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
 require __DIR__ . '/auth.php';
