@@ -108,7 +108,4 @@ Route::get('/quiz/showresults', [QuizController::class, 'showdata'])
     
     Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
         ->middleware(['auth', 'signed'])->name('verification.verify');
-    
-    Route::post('/email/resend', [ResendVerificationEmailController::class, '__invoke'])
-        ->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
 require __DIR__ . '/auth.php';
