@@ -12,7 +12,9 @@
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.12",
         "nesbot/carbon": "2.72",
-        "realrashid/sweet-alert": "^7.2"
+        "realrashid/sweet-alert": "^7.2",
+        "symfony/http-client": "^7.1",
+        "symfony/mailgun-mailer": "^7.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
