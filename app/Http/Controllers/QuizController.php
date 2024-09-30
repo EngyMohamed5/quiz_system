@@ -207,4 +207,21 @@ class QuizController extends Controller
 
         return view('quiz.showresults', compact('score', 'total', 'percentage', 'results', 'userId'));
     }
+
+    // here i show quiz and delete
+    public function index()
+    {
+        $quizzes = Quiz::all();
+        return view('dashboard.quiz.index', compact('quizzes'));
+    }
+    public function show(Quiz $quiz)
+    {
+        $quiz->load('questions.options');
+        return view('dashboard.quiz.show', compact('quiz'));
+    }
+    public function destroy(Quiz $quiz)
+    {
+        $quiz->delete();
+        return redirect()->route('quiz.index')->with('success', 'Quiz deleted successfully.');
+    }
 }
