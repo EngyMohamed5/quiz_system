@@ -117,7 +117,9 @@
 
     <template id="question-template">
      <div class="py-3 my-3 col-md-12 border-bottom">
-         <div class="question-title fw-bolder my-1 fs-4">Question <span class="question-number"></span>:</div>
+         <div class="question-title fw-bolder my-1 fs-4"><span>Question <span class="question-number"></span>:</span>
+             <span>    <button type="button" class="del-question-btn"> <i class=" fa-regular fa-trash-can  text-danger "></i></button>
+ </span></div>
          <div class="form-group mx-2 my-2 col-md-7  d-flex flex-wrap">
              <label class="fw-bold col-md-2 my-1 ">Question Type:</label>
              <select name="questions[index][type]" class="form-control col-md-3  question-type">

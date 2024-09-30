@@ -6,6 +6,7 @@ let true_false_question=document.getElementById("true-false-question");
 
 let questions=document.getElementById("questions-container");
 let add_question_btn=document.getElementById("add-question-btn");
+let delete_question_btns=document.querySelectorAll(".del-question-btn")
 
 let QuestionsCounter=0;
 function addQuestion(){
@@ -39,9 +40,7 @@ function addQuestion(){
                 op.querySelectorAll(".form-group input").forEach(input=>{
                     input.name=input.name.replace("index",QuestionsCounter-1);
                 });
-                // op.querySelectorAll(".form-group select").forEach(select=>{
-                //     select.name=select.name.replace("index",QuestionsCounter-1);
-                // })
+
                 options.appendChild(op);
             }
             let choice=document.getElementById("multiple-choice-correct").content.cloneNode(true );
@@ -52,16 +51,19 @@ function addQuestion(){
 
     });
     question_type.dispatchEvent(new Event("change"));
-
     questions.appendChild(question);
 }
-// function changeTheOptions(question){
-//
-// }
+function deleteQuestion(question){
+   question.remove();
+   QuestionsCounter--;
+}
 
 
 
 
+delete_question_btns.forEach((delete_question_btn,e)=>{
+   delete_question_btn.addEventListener("click",deleteQuestion(e.target));
+});
 
 add_question_btn.addEventListener("click",addQuestion);
 document.addEventListener("DOMContentLoaded",addQuestion);
