@@ -1,13 +1,18 @@
-console.log("hi")
-
 
 let multiple_choice_question=document.getElementById("multiple-choice-question");
 let true_false_question=document.getElementById("true-false-question");
 
 let questions=document.getElementById("questions-container");
 let add_question_btn=document.getElementById("add-question-btn");
-
 let QuestionsCounter=0;
+
+questions.addEventListener("click", function(e) {
+    if (e.target.classList.contains("delete-question-btn") ||
+        e.target.closest(".delete-question-btn")) {
+        let questionDiv = e.target.closest(".question");
+        deleteQuestion(questionDiv);
+    }
+});
 function addQuestion(){
     let question_template=document.getElementById("question-template");
 
@@ -39,9 +44,6 @@ function addQuestion(){
                 op.querySelectorAll(".form-group input").forEach(input=>{
                     input.name=input.name.replace("index",QuestionsCounter-1);
                 });
-                // op.querySelectorAll(".form-group select").forEach(select=>{
-                //     select.name=select.name.replace("index",QuestionsCounter-1);
-                // })
                 options.appendChild(op);
             }
             let choice=document.getElementById("multiple-choice-correct").content.cloneNode(true );
@@ -55,10 +57,21 @@ function addQuestion(){
 
     questions.appendChild(question);
 }
-// function changeTheOptions(question){
-//
-// }
-
+function updateQuestionsNumbers() {
+    let questionDivs = document.querySelectorAll(".question");
+    questionDivs.forEach((q, index) => {
+        q.querySelector(".question-number").textContent = index + 1;
+        q.querySelectorAll('[name*="questions"]').forEach(element => {
+            element.name = element.name.replace(/questions\[\d+\]/, `questions[${index}]`);
+        });
+    });
+    QuestionsCounter = questionDivs.length;
+}
+function deleteQuestion(question){
+    question.remove();
+    QuestionsCounter--;
+    updateQuestionsNumbers();
+}
 
 
 

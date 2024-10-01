@@ -32,6 +32,7 @@ class QuizController extends Controller
 
     public function store(Request $request)
     {
+//        dd($request->questions);
 
         try {
             $request->validate([
@@ -50,7 +51,6 @@ class QuizController extends Controller
                 "questions.*.is_correct_number" => "required|integer|min:1|max:4",
                 "created_by" => "required|integer",
             ]);
-            //dd($request->image);
             DB::transaction(function () use ($request) {
                 $quiz_data = [
                     "title" => $request->title,
@@ -67,7 +67,6 @@ class QuizController extends Controller
                 $quiz = Quiz::create($quiz_data);
 
                 foreach ($request->questions as $question_to_store) {
-                    //                  dd($question_to_store);
                     $question_data = [
                         "question_text" => $question_to_store['text'],
                         "question_type" => $question_to_store['type'],
@@ -84,8 +83,13 @@ class QuizController extends Controller
                     }
                 }
             });
+            alert::success("Success!","Quiz Added Successfully");
+            return redirect()->route("quiz.index");
         } catch (\Exception $e) {
-            return $e->getMessage();
+            $errorCount = count($e->validator->errors()->all());
+            $errorMessage = "There are {$errorCount} issues with your input.";
+            toast($errorMessage, 'error');
+            return redirect()->back();
         }
     }
 

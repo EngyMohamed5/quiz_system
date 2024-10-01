@@ -9,7 +9,7 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-         
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -71,37 +71,6 @@
                     </a>
                 </li>
 
-                {{-- admins --}}
-                <li class="text-decoration-none px-3 py-2 d-block text-primary">Admins</li>
-
-                @if (Auth::user()->role === 'super_admin')
-                <li class="{{Route::is('admins.create') ? 'active' : '' }}">
-                    <a href="{{ route('admins.create') }}"
-                        class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
-                        <span><i class="fa-regular fa-square-plus"></i> Add</span>
-                    </a>
-                </li>
-                @endif
-
-                <li class="{{Route::is('admins.showall') ? 'active' : '' }}">
-                    <a href="{{ route('admins.showall') }}"
-                        class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
-                        <span>Admins</span>
-                    </a>
-                </li>
-
-                <li class="{{Route::is('users.showall') ? 'active' : '' }}">
-                    <a href="{{ route('users.showall') }}"
-                        class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
-                        <span>Users</span>
-                    </a>
-                </li>
-                <li class="{{Route::is('allusers.showall') ? 'active' : '' }}">
-                    <a href="{{ route('allusers.showall') }}"
-                        class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
-                        <span>All Users</span>
-                    </a>
-                </li>
             {{--            Quizzes    --}}
                 <li class="text-decoration-none px-3 py-2 d-block text-primary">Quizzes</li>
                 <li class="{{Route::is('admin.CreateQuiz') ? 'active' : '' }}">
@@ -114,16 +83,48 @@
                 <li class="{{Route::is('quiz.index') ? 'active' : '' }}">
                     <a href="{{ route('quiz.index') }}"
                        class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
-                        <span>All Quiz</span>
+                        <span>All Quizzes</span>
                     </a>
                 </li>
 
                 {{--                results    --}}
-                <li class="text-decoration-none px-3 py-2 d-block text-primary">results</li>
+                <li class="text-decoration-none px-3 py-2 d-block text-primary">Results</li>
                 <li class="{{Route::is('quiz.showresults') ? 'active' : '' }}">
                     <a href="{{ route('quiz.showresults') }}"
                        class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
-                        <span>show results</span>
+                        <span>Show Results</span>
+                    </a>
+                </li>
+
+                {{-- admins --}}
+                <li class="text-decoration-none px-3 py-2 d-block text-primary">Admins</li>
+
+                @if (Auth::user()->role === 'super_admin')
+                    <li class="{{Route::is('admins.create') ? 'active' : '' }}">
+                        <a href="{{ route('admins.create') }}"
+                           class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
+                            <span><i class="fa-regular fa-square-plus"></i> Add</span>
+                        </a>
+                    </li>
+                @endif
+
+                <li class="{{Route::is('admins.showall') ? 'active' : '' }}">
+                    <a href="{{ route('admins.showall') }}"
+                       class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
+                        <span>Admins</span>
+                    </a>
+                </li>
+
+                <li class="{{Route::is('users.showall') ? 'active' : '' }}">
+                    <a href="{{ route('users.showall') }}"
+                       class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
+                        <span>Users</span>
+                    </a>
+                </li>
+                <li class="{{Route::is('allusers.showall') ? 'active' : '' }}">
+                    <a href="{{ route('allusers.showall') }}"
+                       class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
+                        <span>All</span>
                     </a>
                 </li>
             </ul>

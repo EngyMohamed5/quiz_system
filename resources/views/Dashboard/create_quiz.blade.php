@@ -12,11 +12,11 @@
 
         <div>
             <div class="form-check form-check-inline my-2">
-                <input class="form-check-input" type="radio" name="quiz_type" id="inlineRadio2" value="once_attempt" checked>
+                <input class="form-check-input" type="radio" name="quiz_type" id="inlineRadio2" value="once_attempt" {{ old('quiz_type') == 'once_attempt' ? 'checked' : '' }}>
                 <label class="form-check-label" for="inlineRadio2">one attempt</label>
             </div>
             <div class="form-check form-check-inline me-5 my-2">
-                <input class="form-check-input" type="radio" name="quiz_type" id="inlineRadio1" value="multiple_attempts">
+                <input class="form-check-input" type="radio" name="quiz_type" id="inlineRadio1" value="multiple_attempts" {{ old('quiz_type') == 'multiple_attempts' ? 'checked' : '' }}>
                 <label class="form-check-label" for="inlineRadio1">multiple attempts</label>
             </div>
         </div>
@@ -36,7 +36,7 @@
             <select type="text" class="form-control" name="topic_id">
                 @if(count($topics))
                     @foreach($topics as $topic)
-                        <option value="{{$topic["id"]}}" class="topic">{{$topic["name"]}}</option>
+                        <option value="{{$topic["id"]}}" class="topic" {{ old('topic_id') == $topic['id'] ? 'selected' : '' }}>{{$topic["name"]}}</option>
                     @endforeach
                 @endif
 
@@ -44,15 +44,7 @@
         </div>
         <div class="mb-3 col-md-5">
             <label class="form-label">Time Limit</label>
-            <select class="form-control" name="time_limit">
-                <option value="0">None</option>
-                <option value="5">5 minutes</option>
-                <option value="10">10 minutes</option>
-                <option value="15">15 minutes</option>
-                <option value="20">20 minutes</option>
-                <option value="25">25 minutes</option>
-                <option value="30">30 minutes</option>
-            </select>
+            <input type="number" class="form-control" name="time_limit" min="0" value="{{old("time_limit","")}}">
         </div>
         <div class="mb-3 col-md-12">
             <label class="form-label">Description</label>
@@ -94,13 +86,11 @@
     <template id="true-false-question">
         <div>
            <div class="d-flex gap-2 flex-wrap">
-               <div class="form-group my-2 ">
-                   <label>Option <span class="option-number">1</span>:</label>
-                   <input type="text" name="questions[index][options][]" class="form-control" value="True" readonly>
+               <div class="form-group ">
+                   <input type="hidden" name="questions[index][options][]" class="form-control" value="True" readonly>
                </div>
-               <div class="form-group my-2 ">
-                   <label>Option <span class="option-number">2</span>:</label>
-                   <input type="text" name="questions[index][options][]" class="form-control" value="False" readonly>
+               <div class="form-group ">
+                   <input type="hidden" name="questions[index][options][]" class="form-control" value="False" readonly>
                </div>
            </div>
             <div class="form-group my-2 ">
@@ -116,13 +106,16 @@
 
 
     <template id="question-template">
-     <div class="py-3 my-3 col-md-12 border-bottom">
-         <div class="question-title fw-bolder my-1 fs-4">Question <span class="question-number"></span>:</div>
+     <div class="py-3 my-3 col-md-12 border-bottom question">
+         <div class="question-title fw-bolder my-1 fs-4 d-flex justify-content-between"><span>Question <span class="question-number"></span>:</span>
+         <span><button type="button" style="background: none; border: none; cursor: pointer;" class="delete-question-btn">
+                 <i class=" fa-regular fa-trash-can  text-danger "></i></button></span>
+         </div>
          <div class="form-group mx-2 my-2 col-md-7  d-flex flex-wrap">
              <label class="fw-bold col-md-2 my-1 ">Question Type:</label>
              <select name="questions[index][type]" class="form-control col-md-3  question-type">
-                 <option value="true_false" selected>True/False</option>
-                 <option value="multiple_choice" >Multiple Choice</option>
+                 <option value="true_false">True/False</option>
+                 <option value="multiple_choice">Multiple Choice</option>
              </select>
          </div>
          <div class="form-group mx-2 my-2 col-md-12">
