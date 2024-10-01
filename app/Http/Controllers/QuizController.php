@@ -215,7 +215,7 @@ class QuizController extends Controller
     // here i show quiz and delete
     public function index()
     {
-        $quizzes = Quiz::all();
+        $quizzes = Quiz::with(['creator:id,name'])->get();
         return view('dashboard.quiz.index', compact('quizzes'));
     }
     public function show(Quiz $quiz)
