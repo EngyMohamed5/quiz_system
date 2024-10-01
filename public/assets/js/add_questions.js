@@ -74,7 +74,4 @@ function deleteQuestion(question){
 }
 
 
-
-
 add_question_btn.addEventListener("click",addQuestion);
-document.addEventListener("DOMContentLoaded",addQuestion);

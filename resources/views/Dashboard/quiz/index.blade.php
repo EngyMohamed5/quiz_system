@@ -5,34 +5,18 @@
 
         <div class="d-flex justify-content-between">
             <h2>Quizzes List</h2>
-{{--            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">--}}
-{{--                <div class="dropdown">--}}
-{{--                    <x-nav-link  class="dropdown-toggle" :href="route('dashboard')" :active="request()->routeIs('quizzes.by_topic')"  role="button" id="topicsDropdown" data-bs-toggle="dropdown" aria-expanded="false">--}}
-{{--                        {{ __('Topics') }}--}}
-{{--                    </x-nav-link>--}}
-
-{{--                    <!-- Dropdown Menu -->--}}
-{{--                    <ul class="dropdown-menu" aria-labelledby="topicsDropdown">--}}
-{{--                        @foreach($topics as $topic)--}}
-{{--                            <li>--}}
-{{--                                <a class="dropdown-item" href="{{ route('quizzes.by_topic', $topic->id) }}">--}}
-{{--                                    {{ $topic->name }}--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                        @endforeach--}}
-{{--                    </ul>--}}
-{{--                </div>--}}
-{{--            </div>--}}
             <x-dropdown align="right" width="48">
                 <x-slot name="trigger">
                     <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
                         Filter By Topic
                     </button>
                 </x-slot>
-
                 <x-slot name="content">
+                    <x-dropdown-link  href="{{ route('quiz.index') }}">
+                            All
+                    </x-dropdown-link>
                     @foreach($topics as $topic)
-                            <x-dropdown-link  href="{{ route('quizzes.by_topic', $topic->id) }}">
+                            <x-dropdown-link  href="{{ route('quizzes.by_topic.admin', $topic->id) }}">
                                 {{ $topic->name }}
                             </x-dropdown-link>
                     @endforeach
@@ -62,12 +46,16 @@
                     <td>{{ $quiz->creator["name"] }}</td>
                     <td>{{ ucwords(str_replace("_"," ",$quiz->quiz_type)) }}</td>
                     <td class="d-flex justify-content-evenly">
-                        <a href="{{ route('questions.index', $quiz->id) }}"><i class="fa-regular fa-eye"></i></a>
-                        <form action="{{ route('quiz.delete', $quiz->id) }}" method="POST" style="display:inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit"><i class=" fa-regular fa-trash-can  text-danger "></i></button>
-                        </form>
+                      @if(auth()->check() && auth()->user()->role=="super_admin"||auth()->user()->id==$quiz->created_by)
+                            <a href="{{ route('questions.index', $quiz->id) }}"><i class="fa-regular fa-eye"></i></a>
+                            <form action="{{ route('quiz.delete', $quiz->id) }}" method="POST" style="display:inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"><i class=" fa-regular fa-trash-can  text-danger "></i></button>
+                            </form>
+                        @else
+                          <p class="text-secondary">No Action Can Be Took</p>
+                      @endif
                     </td>
 
                 </tr>

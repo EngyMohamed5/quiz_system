@@ -30,10 +30,27 @@ class QuizController extends Controller
         return view('website.quizzes.show', compact('quiz'));
     }
 
+    public function addQuestions(array $QuestionsData, Quiz $quiz,Request $request=null)
+    {
+        foreach ( $QuestionsData as $question_to_store) {
+            $question_data = [
+                "question_text" => $question_to_store['text'],
+                "question_type" => $question_to_store['type'],
+            ];
+            if (array_key_exists('image', $question_to_store)) {
+                $question_data['image'] = $this->uploadImage($question_to_store, 'image', 'Questions_images');
+            }
+            $question = $quiz->questions()->create($question_data);
+            foreach ($question_to_store['options'] as $index => $option) {
+                $question->options()->create([
+                    'option_text' => $option,
+                    'is_correct' => ($question_to_store['is_correct_number'] - 1) === $index ? 1 : 0,
+                ]);
+            }
+        }
+    }
     public function store(Request $request)
     {
-//        dd($request->questions);
-
         try {
             $request->validate([
                 "title" => "required|string|unique:quizzes",
@@ -65,23 +82,8 @@ class QuizController extends Controller
                 }
 
                 $quiz = Quiz::create($quiz_data);
+                $this->addQuestions($request["questions"],$quiz,$request);
 
-                foreach ($request->questions as $question_to_store) {
-                    $question_data = [
-                        "question_text" => $question_to_store['text'],
-                        "question_type" => $question_to_store['type'],
-                    ];
-                    if (array_key_exists('image', $question_to_store)) {
-                        $question_data['image'] = $this->uploadImage($request, 'image', 'Questions_images');
-                    }
-                    $question = $quiz->questions()->create($question_data);
-                    foreach ($question_to_store['options'] as $index => $option) {
-                        $question->options()->create([
-                            'option_text' => $option,
-                            'is_correct' => ($question_to_store['is_correct_number'] - 1) === $index ? 1 : 0,
-                        ]);
-                    }
-                }
             });
             alert::success("Success!","Quiz Added Successfully");
             return redirect()->route("quiz.index");
@@ -227,5 +229,56 @@ class QuizController extends Controller
     {
         $quiz->delete();
         return redirect()->route('quiz.index')->with('success', 'Quiz deleted successfully.');
+    }
+    public function update(Request $request)
+    {
+        try{
+            $rules = [
+                "description" => "required",
+                "quiz_type" => "required",
+                "image" => "nullable|image|mimes:jpeg,png,jpg,gif,svg",
+                "time_limit" => "required|integer|min:0",
+                "topic_id" => "required",
+            ];
+            $quiz = Quiz::find($request->id);
+            $rules["title"] = ($quiz->title !== $request->title) ? "required|unique:quizzes,title" : "required";
+            if(isset($request->questions)){
+                $rules["questions"] = "required|array";
+                $rules["questions.*.text" ]= "required|string";
+                $rules["questions.*.type" ]= "required|string";
+                $rules["questions.*.image"] = "nullable|image|mimes:jpeg,png,jpg,gif";
+                $rules["questions.*.options"] = "required|array|min:2";
+                $rules["questions.*.options.*"] = "required|string";
+                $rules["questions.*.is_correct_number" ]= "required|integer|min:1|max:4";
+            }
+            $validatedData = $request->validate($rules);
+            DB::transaction(function () use ($quiz, $validatedData, $request) {
+                $quiz->update([
+                    'title' => $validatedData['title'],
+                    'description' => $validatedData['description'],
+                    'quiz_type' => $validatedData['quiz_type'],
+                    'time_limit' => $validatedData['time_limit'],
+                    'topic_id' => $validatedData['topic_id'],
+                ]);
+                if ($this->checkFile($request,"image")) {
+                    $quiz->image = $this->uploadImage($request, 'image', 'Quizzes_images');
+                    $quiz->save();
+                }
+                if(isset($validatedData['questions'])){
+                    $this->addQuestions($validatedData["questions"],$quiz,$request);
+                }
+            });
+            alert::success("Success!","Quiz Updated Successfully");
+            return redirect()->back();
+        }catch(\Exception $e){
+            alert::error("Failed!",$e->getMessage());
+            return redirect()->back();
+        }
+    }
+    public function showQuizzesByTopicForAdmin(Topic $topic)
+    {
+        $quizzes=$topic->quizzes;
+        return view('Dashboard.quiz.index', compact( 'quizzes'));
+
     }
 }

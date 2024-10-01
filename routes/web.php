@@ -68,6 +68,7 @@ Route::post("admin/storeQuiz", [QuizController::class, 'store'])->name('quiz.sto
 /*....................................................................... */
 //quiz admin update  delete
 Route::get('admin/quizzes', [QuizController::class, 'index'])->name('quiz.index');
+Route::post('admin/quizzes/update', [QuizController::class, 'update'])->name('quiz.update');
 Route::delete('admin/quizzes/{quiz}', [QuizController::class, 'destroy'])->name('quiz.delete');
 Route::get('admin/quizzes/{quiz}/questions', [QuestionController::class, 'index'])->name('questions.index');
 Route::resource('admin.quizzes.questions', QuestionController::class)->parameters([
@@ -77,6 +78,8 @@ Route::get('admin/quizzes/{quiz}/questions/{question}', [QuestionController::cla
 Route::get('admin/quizzes/{quiz}/questions/{question}/edit', [QuestionController::class, 'edit'])->name('questions.edit');
 Route::put('admin/quizzes/{quiz}/questions/{question}', [QuestionController::class, 'update'])->name('questions.update');
 Route::delete('quizzes/{quiz}/questions/{question}', [QuestionController::class, 'destroy'])->name('questions.destroy');
+
+Route::get('admin/quizzes/topics/{topic}', [QuizController::class, 'showQuizzesByTopicForAdmin'])->name('quizzes.by_topic.admin');
 
 /*....................................................................... */
 
@@ -105,7 +108,7 @@ Route::get('/quiz/showresults', [QuizController::class, 'showdata'])
     Route::get('/email/verify', function () {
         return view('auth.verify-email');
     })->middleware('auth')->name('verification.notice');
-    
+
     Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
         ->middleware(['auth', 'signed'])->name('verification.verify');
 require __DIR__ . '/auth.php';
