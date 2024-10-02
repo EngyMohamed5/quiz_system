@@ -28,7 +28,7 @@
                    value="{{ old('title') }}" autofocus>
         </div>
         <div class="mb-3 col-md-5">
-            <label class="form-label">Quiz Picture</label>
+            <label class="form-label">Quiz Picture (optional)</label>
             <input type="file" class="form-control" name="image">
         </div>
         <div class="mb-3 col-md-5">

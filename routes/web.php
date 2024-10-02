@@ -56,31 +56,38 @@ Route::get('users/showall', [AdminController::class, 'allusers'])
 Route::resource('admins', AdminController::class)->middleware('admin');
 Route::resource('admins', AdminController::class)->only(['create', 'store'])->middleware('super_admin');
 
-
-
-//Create Quiz
-Route::get('admin/createQuiz', [AdminController::class, 'createQuizPage'])
-    ->name('admin.CreateQuiz')->middleware('admin');
-Route::post("admin/storeQuiz", [QuizController::class, 'store'])->name('quiz.store')->middleware('admin');
-
-
-
 /*....................................................................... */
-//quiz admin update  delete
-Route::get('admin/quizzes', [QuizController::class, 'index'])->name('quiz.index');
-Route::post('admin/quizzes/update', [QuizController::class, 'update'])->name('quiz.update');
-Route::delete('admin/quizzes/{quiz}', [QuizController::class, 'destroy'])->name('quiz.delete');
-Route::get('admin/quizzes/{quiz}/questions', [QuestionController::class, 'index'])->name('questions.index');
-Route::resource('admin.quizzes.questions', QuestionController::class)->parameters([
-    'questions' => 'question'
-]);
-Route::get('admin/quizzes/{quiz}/questions/{question}', [QuestionController::class, 'show'])->name('questions.show'); // Show a specific question
-Route::get('admin/quizzes/{quiz}/questions/{question}/edit', [QuestionController::class, 'edit'])->name('questions.edit');
-Route::put('admin/quizzes/{quiz}/questions/{question}', [QuestionController::class, 'update'])->name('questions.update');
-Route::delete('quizzes/{quiz}/questions/{question}', [QuestionController::class, 'destroy'])->name('questions.destroy');
+Route::middleware(['admin'])->group(function () {
+    // Quiz Creation
+    Route::get('admin/createQuiz', [AdminController::class, 'createQuizPage'])
+        ->name('admin.CreateQuiz');
+    Route::post("admin/storeQuiz", [QuizController::class, 'store'])
+        ->name('quiz.store');
 
-Route::get('admin/quizzes/topics/{topic}', [QuizController::class, 'showQuizzesByTopicForAdmin'])->name('quizzes.by_topic.admin');
+    // Quizzes & Questions Management
+    Route::get('admin/quizzes', [QuizController::class, 'index'])
+        ->name('quiz.index');
+    Route::post('admin/quizzes/update', [QuizController::class, 'update'])
+        ->name('quiz.update');
+    Route::delete('admin/quizzes/{quiz}', [QuizController::class, 'destroy'])
+        ->name('quiz.delete');
+    Route::get('admin/quizzes/{quiz}/questions', [QuestionController::class, 'index'])
+        ->name('questions.index');
+    Route::resource('admin.quizzes.questions', QuestionController::class)->parameters([
+        'questions' => 'question'
+    ]);
+    Route::get('admin/quizzes/{quiz}/questions/{question}', [QuestionController::class, 'show'])
+        ->name('questions.show');
+    Route::get('admin/quizzes/{quiz}/questions/{question}/edit', [QuestionController::class, 'edit'])
+        ->name('questions.edit');
+    Route::put('admin/quizzes/{quiz}/questions/{question}', [QuestionController::class, 'update'])
+        ->name('questions.update');
+    Route::delete('quizzes/{quiz}/questions/{question}', [QuestionController::class, 'destroy'])
+        ->name('questions.destroy');
 
+    Route::get('admin/quizzes/topics/{topic}', [QuizController::class, 'showQuizzesByTopicForAdmin'])
+        ->name('quizzes.by_topic.admin');
+});
 /*....................................................................... */
 
 
@@ -111,4 +118,6 @@ Route::get('/quiz/showresults', [QuizController::class, 'showdata'])
 
     Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
         ->middleware(['auth', 'signed'])->name('verification.verify');
+
+
 require __DIR__ . '/auth.php';

@@ -20,24 +20,35 @@
         </div>
 
         <div class="mb-3 col-md-5">
-            <label class="form-label">Name</label>
-            <input type="text" class="form-control" name="title" placeholder="Enter Quiz Title"
-                   value="{{$quiz->title}}" autofocus>
-        </div>
-        <div class="mb-3 col-md-5">
-            <label class="form-label">Quiz Picture</label>
-            <input type="file" class="form-control" name="image">
-        </div>
-        <div class="mb-3 col-md-5">
-            <label class="form-label">Topic</label>
-            <select type="text" class="form-control" name="topic_id">
-                @if(count($topics))
-                    @foreach($topics as $topic)
-                        <option value="{{$topic["id"]}}" class="topic" {{ $quiz->topic_id == $topic['id'] ? 'selected' : '' }}>{{$topic["name"]}}</option>
-                    @endforeach
-                @endif
+            <div class="mb-3 col-md-12">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" name="title" placeholder="Enter Quiz Title"
+                       value="{{$quiz->title}}" autofocus>
+            </div>
+            <div class="mb-3 col-md-12">
+                <label class="form-label">Topic</label>
+                <select type="text" class="form-control" name="topic_id">
+                    @if(count($topics))
+                        @foreach($topics as $topic)
+                            <option value="{{$topic["id"]}}" class="topic" {{ $quiz->topic_id == $topic['id'] ? 'selected' : '' }}>{{$topic["name"]}}</option>
+                        @endforeach
+                    @endif
 
-            </select>
+                </select>
+            </div>
+        </div>
+        <div class="mb-3 col-md-5">
+           <div class="mb-3 col-md-12">
+            <label class="form-label">Quiz Picture (optional)</label>
+            <input type="file" class="form-control" name="image">
+          </div>
+            <div class="col-md-12 mb-3">
+                @if(isset($quiz->image))
+                    <img src="{{ asset('upload_images/' . $quiz->image) }}" style="max-width: 100px;">
+                @else
+                    <p class="text-secondary">No Image Is Set For This Quiz</p>
+                @endif
+            </div>
         </div>
         <div class="mb-3 col-md-5">
             <label class="form-label">Time Limit</label>
@@ -78,7 +89,7 @@
                 <tr>
                     <th>Question No.</th>
                     <th>Question Text</th>
-                    <th>Image</th>
+                    <th>Question Type</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -88,11 +99,7 @@
                         <td>{{ ++$NumberOfQuestions }}</td>
                         <td>{{ $question->question_text }}</td>
                         <td>
-                          @if(isset($question->image))
-                                <img src="{{ asset('upload_images/' . $question->image) }}" alt="Question Image" style="max-width: 100px;">
-                            @else
-                              <p class="m-auto text-secondary">No Image For This Question</p>
-                          @endif
+                            {{$question->question_type=="multiple_choice"?ucwords(str_replace("_"," ",$question->question_type)):implode("/", array_map('ucfirst', explode("_", $question->question_type)))}}
                         </td>
 
 {{--                        <!-- Correct Answer -->--}}
