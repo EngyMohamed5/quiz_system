@@ -4,24 +4,64 @@ body {
     
 }
 
+/* /////////////////////////////////////////////// */
+
 .imgquiz{
     height:12em;
     overflow:hidden;
     width: 100%;
-    transition-duration: 2s
+    transition-duration: 1s
 }
 .quiz-card{
-    transition-duration: 1s
-    
+    position: relative;
+    transition-duration: 1s;    
 }
+
+.quiz-card::before{
+    content: "";
+    position: absolute;
+    top: 1em;
+    left: -10em;
+    z-index: 10;
+    width: 10em;
+    height: 3em;
+    background-color: #0D6EFD;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bold;
+
+    border-radius: 0 .5em .5em 0;
+    transition: 1s;
+}
+
+.quiz-card.once_attempt::before {
+    content: "One Attempt";
+}
+
+.quiz-card.multiple_attempts::before {
+    content: "Multiple Attempts";
+}
+
+
 .quiz-card:hover{
 
     transform: translatey(-.5em)
   
 }
+
+.quiz-card:hover::before{
+    left: 0em;
+}
+
 .quiz-card:hover .imgquiz{       
     width: 105%;  
 }
+
+
+/* ////////////////////////////////////////////////////////////////////////////////////// */
 
 .hero-section {
   
@@ -32,7 +72,7 @@ body {
 
     color: #ffffff;
 
-    background-image:  linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)) , url("https://img.freepik.com/free-photo/front-view-kid-cheating-school_23-2150104957.jpg?t=st=1727394624~exp=1727398224~hmac=bd992974334fc42f034742ab781337d05bd5577a45d5cc598405aeeb04053ad5&w=996");
+    background-image:  linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)) , url("https://images.pexels.com/photos/3986613/pexels-photo-3986613.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
     overflow: hidden;
     background-position: center;
     background-repeat: no-repeat;
@@ -76,7 +116,7 @@ body {
 
 
 .cta-section {
-    background-color: #222;
+    background-color: #ffffff;
 }
 
 

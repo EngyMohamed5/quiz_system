@@ -26,8 +26,8 @@
         <div class="row">
             @forelse($quizzes as $quiz)
             <div class="col-md-6 col-lg-4 mb-4" >
-                <div class="quiz-card card shadow-sm m-2" style="height:20em;overflow:hidden">
-                   
+                <div class="quiz-card card shadow-sm m-2 {{ $quiz->quiz_type }}" style="height:20em;overflow:hidden">
+                    
                     <div class="imgquiz">
                         @if($quiz->image)
                         <img src="{{ asset('upload_images/' . $quiz->image) }}" class="card-img-top" alt="{{ $quiz->title }}">
