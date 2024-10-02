@@ -19,10 +19,17 @@ use RealRashid\SweetAlert\Facades\Alert;
 class QuizController extends Controller
 {
     use Uploadimage, CheckFile;
-    public function showQuizzesByTopic(Topic $topic)
+    public function showQuizzesByTopic($id)
     {
-        $quizzes = $topic->quizzes;
+        if($id){
+            $topic = Topic::findOrFail($id);
+            $quizzes = $topic->quizzes()->paginate(1);           
+        }else{        
+            $topic = (object) ['name'=>'All']; 
+            $quizzes = Quiz::paginate(1);
+        }
         return view('website.quizzes.index', compact('topic', 'quizzes'));
+       
     }
 
     public function showQuiz(Quiz $quiz)

@@ -28,6 +28,11 @@
                         
                         <!-- Dropdown Menu -->
                         <ul class="dropdown-menu" aria-labelledby="topicsDropdown">
+                            <li>
+                                <a class="dropdown-item" href="{{ route('quizzes.by_topic', 0) }}">
+                                    All
+                                </a>
+                            </li>
                             @foreach($topics as $topic)
                                 <li>
                                     <a class="dropdown-item" href="{{ route('quizzes.by_topic', $topic->id) }}">

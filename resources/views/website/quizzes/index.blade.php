@@ -1,24 +1,4 @@
 <x-app-layout>
-
-    {{-- <style>
-        
-        .imgcontainer::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 0;
-            height:12em;
-            background-color: #ededed2e;
-            
-            transition: 0.3s;
-        }
-        .card:hover .imgcontainer::before {
-            width: 100%;
-            
-        }  
-        
-    </style> --}}
     
     <div class="container my-5">
         <h1 class="text-center mb-4">Quizzes on {{ $topic->name }}</h1>
@@ -62,6 +42,9 @@
                 </div>
             
             @endforelse
+        </div>
+        <div class="w-100 d-flex justify-content-center mt-5">
+            {{ $quizzes->links() }}
         </div>
     </div>
 
