@@ -7,20 +7,19 @@
         </div>
     </x-slot>
 
-    <div class="container">
+    <div class="container" style="padding-top: 30px;">
         <h1>Your Performance</h1>
         <p>Congratulations! Here are your results:</p>
-
+    
         <!-- Dropdown for filtering attempts -->
         <div class="mb-4">
-            <label for="attemptFilter" class="form-label">Filter by Attempt Type:</label>
             <select id="attemptFilter" class="form-select" onchange="filterTable()">
                 <option value="all">Show All</option>
                 <option value="once">Once Attempt</option>
                 <option value="multiple">Multiple Attempts</option>
             </select>
         </div>
-
+    
         @if($userResults->isEmpty())
             <p>No results found for your quizzes.</p>
         @else
@@ -28,7 +27,6 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>User ID</th>
                         <th>Name</th>
                         <th>Quiz Title</th>
                         <th>Score</th>
@@ -40,7 +38,6 @@
                         @foreach($results as $result)
                         <tr data-attempt-type="{{ $results->count() == 1 ? 'once' : 'multiple' }}" data-attempt-number="{{ $result->attempt_number }}">
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $result->user_id }}</td>
                             <td>{{ $result->name }}</td>
                             <td>{{ $result->title }}</td>
                             <td>{{ $result->score }}%</td>
@@ -52,6 +49,7 @@
             </table>
         @endif
     </div>
+    
 
     <script>
         function filterTable() {
