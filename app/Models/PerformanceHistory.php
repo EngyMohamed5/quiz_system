@@ -15,15 +15,5 @@ class PerformanceHistory extends Model
         'score',
         'attempt_number', 
     ];
-     // Define relationship with User
-     public function user()
-     {
-         return $this->belongsTo(User::class, 'user_id');
-     }
- 
-     // Define relationship with Quiz
-     public function quiz()
-     {
-         return $this->belongsTo(Quiz::class, 'quiz_id');
-     }
+    
 }

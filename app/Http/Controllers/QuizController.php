@@ -15,6 +15,7 @@ use App\Traits\Uploadimage;
 use App\Traits\CheckFile;
 use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Validation\ValidationException;
 
 class QuizController extends Controller
 {
@@ -94,10 +95,20 @@ class QuizController extends Controller
             });
             alert::success("Success!","Quiz Added Successfully");
             return redirect()->route("quiz.index");
-        } catch (\Exception $e) {
-            $errorCount = count($e->validator->errors()->all());
+        } catch (ValidationException $e) {
+            // Get the error messages
+            $errorMessages = $e->validator->errors()->all();
+            $errorCount = count($errorMessages);
             $errorMessage = "There are {$errorCount} issues with your input.";
+            
+            // Display error message (using toast, assuming it's a function you have)
             toast($errorMessage, 'error');
+            
+            // Redirect back to the previous page
+            return redirect()->back()->withInput(); // Optionally retain the input
+        } catch (\Exception $e) {
+            // Handle any other exceptions
+            toast('An unexpected error occurred. Please try again.', 'error');
             return redirect()->back();
         }
     }
