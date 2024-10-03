@@ -24,7 +24,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @php $counter = 1; @endphp --}}
+                   
                     @foreach($userResults as $result)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
