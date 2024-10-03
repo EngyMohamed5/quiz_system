@@ -16,7 +16,7 @@ class TopicController extends Controller
     // }
     public function index()
     {
-       
+
         return view('Dashboard.topics.index');
     }
 
@@ -49,7 +49,7 @@ class TopicController extends Controller
         }
         return redirect()->route('topics.index');
 
-        
+
     }
 
     /**
@@ -92,13 +92,12 @@ class TopicController extends Controller
      */
     public function destroy(Topic $topic)
     {
-        
+
         try {
             $topic->delete();
             Alert::success('Success!', 'Deleted successfully');
         } catch (\Exception $e) {
             Alert::error('Error!', 'Failed to delete this topic');
-           
         }
 
         return redirect()->route('topics.index');

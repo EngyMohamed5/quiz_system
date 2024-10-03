@@ -53,11 +53,11 @@
 
     @if (!auth()->check())
         
-        <section class="cta-section text-center py-5 text-white">
+        <section class="cta-section text-center py-5">
             <div class="container">
                 <h2 class="display-5 fw-bold mb-4">Ready to Test Your Knowledge?</h2>
                 <p class="lead">Sign up or log in to take a quiz and track your progress!</p>
-                <a href="{{ route('login') }}" class="btn btn-lg btn-light px-4 py-3 mt-3">Get Started</a>
+                <a href="{{ route('login') }}" class="btn btn-lg btn-outline-primary px-4 py-3 mt-3">Get Started</a>
             </div>
         </section>
     @endif

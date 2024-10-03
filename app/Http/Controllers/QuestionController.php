@@ -13,6 +13,7 @@ use App\Traits\CheckFile;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class QuestionController extends Controller
 {
@@ -43,42 +44,43 @@ class QuestionController extends Controller
 
     public function update(Request $request, $quizId, $questionId)
     {
-        $request->validate([
-            'question_text' => 'required|string',
-            'question_type' => 'required|string|in:true_false,multiple_choice',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'options' => 'required|array|min:2',
-            'options.*.option_text' => 'required|string',
-            'options.*.is_correct' => 'required|boolean',
-        ]);
+//        return $request;
+//        dd ($request);
+        try{
+            $request->validate([
+                'question_text' => 'required|string',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+                'options' => 'required|array|min:2',
+                'options.*.option_text' => 'required|string',
+                'is_correct_number' => 'integer',
+            ]);
+            DB::transaction(function () use ($request,$questionId,$quizId) {
+                $question = Question::findOrFail($questionId);
+                $question->question_text = $request->question_text;
+                if ($this->checkFile($request,'image')) {
+                    $question->image = $this->uploadimage($request, 'image', 'Questions_images');
+                }
+                $question->save();
+                foreach ($request->options as $index => $option_to_edit) {
+                    $option = Option::findOrFail($option_to_edit['id']);
+                    $option->option_text = $option_to_edit['option_text'];
+                    $option->is_correct = ($request->is_correct_number - 1) === $index ? 1 : 0;
+                    $option->save();
+                }
+            });
 
-        // get question here
-        $question = Question::findOrFail($questionId);
-        $question->question_text = $request->input('question_text');
-        $question->question_type = $request->input('question_type');
-
-        // image update
-
-            $quiz_data['image']=$this->uploadImage($request, 'image', 'Quizzes_images');
-
-    if ($this->checkFile($request,'image')) {
-        $question->image = $this->uploadimage($request, 'image', 'Questions_images');
-    }
-        $question->save();
-        foreach ($request->options as $optionData) {
-            $option = Option::findOrFail($optionData['id']);
-            $option->option_text = $optionData['option_text'];
-            $option->is_correct = $optionData['is_correct'];
-            $option->save();
+            alert::success("Success!",'Question Updated Successfully');
+            return redirect()->back();
         }
-
-        return redirect()->route('questions.index', $quizId)->with('success', 'Question and options updated successfully');
+     catch (\Exception $e){
+         alert()->error('Question Could Not Be Updated!');
+         return redirect()->back();
+     }
     }
 
     public function destroy(Quiz $quiz, Question $question)
     {
         $question->delete();
-
         return redirect()->route('questions.index', $quiz->id)->with('success', 'Question deleted successfully.');
     }
 

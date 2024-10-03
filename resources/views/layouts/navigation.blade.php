@@ -5,8 +5,9 @@
             <div class="flex align-items-center">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                    <a class="d-flex text-decoration-none align-items-end" href="{{ route('dashboard') }}">
+                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200 fs-2" />
+                        <span class="fs-4 fw-bold ms-1 ">Quizo</span>
                     </a>
                 </div>
 
@@ -27,6 +28,11 @@
                         
                         <!-- Dropdown Menu -->
                         <ul class="dropdown-menu" aria-labelledby="topicsDropdown">
+                            <li>
+                                <a class="dropdown-item" href="{{ route('quizzes.by_topic', 0) }}">
+                                    All
+                                </a>
+                            </li>
                             @foreach($topics as $topic)
                                 <li>
                                     <a class="dropdown-item" href="{{ route('quizzes.by_topic', $topic->id) }}">

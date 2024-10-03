@@ -22,7 +22,7 @@ class Quiz extends Model
 
     public function topic()
     {
-        return $this->belongsTo(Topic::class);
+        return $this->belongsTo(Topic::class,"topic_id","id");
     }
 
     public function questions()
@@ -30,6 +30,10 @@ class Quiz extends Model
         return $this->hasMany(Question::class);
     }
 
-   
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by',"id");
+    }
+
 
 }
