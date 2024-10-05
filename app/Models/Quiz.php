@@ -35,5 +35,13 @@ class Quiz extends Model
         return $this->belongsTo(User::class, 'created_by',"id");
     }
 
+    public function participants()
+    {
+        return $this->belongsToMany(User::class, 'performance_histories');
+    }
+    public function performances()
+    {
+        return $this->hasMany(PerformanceHistory::class,"quiz_id","id");
+    }
 
 }

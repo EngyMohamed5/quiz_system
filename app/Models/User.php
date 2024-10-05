@@ -47,7 +47,12 @@ class User  extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function quizzes(){
-        return $this->hasMany(Quiz::class);
+    public function quizzes(){ //created quizzes
+        return $this->hasMany(Quiz::class,"created_by");
     }
+    public function takenQuizzes() //taken quizzes
+    {
+        return $this->belongsToMany(Quiz::class, 'performance_histories', 'user_id', 'quiz_id');
+    }
+
 }

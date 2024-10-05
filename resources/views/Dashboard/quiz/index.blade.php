@@ -42,11 +42,12 @@
                     <td>{{ $quiz->title }}</td>
                     <td>{{ $quiz->description }}</td>
                     <td>{{ $quiz->time_limit }} minutes</td>
-                    <td>{{ $quiz->topic->name }}</td>
+                    <td>{{ ucwords($quiz->topic->name) }}</td>
                     <td>{{ $quiz->creator["name"] }}</td>
                     <td>{{ ucwords(str_replace("_"," ",$quiz->quiz_type)) }}</td>
-                    <td class="d-flex justify-content-evenly">
-                      @if(auth()->check() && auth()->user()->role=="super_admin"||auth()->user()->id==$quiz->created_by)
+                    <td class="d-flex justify-content-evenly px-3 gap-3">
+                        <a href="{{route("quizzes.participants",$quiz->id)}}"> <i class="fa-solid fa-users"></i></a>
+                        @if(auth()->check() && auth()->user()->role=="super_admin"||auth()->user()->id==$quiz->created_by)
                             <a href="{{ route('questions.index', $quiz->id) }}"><i class="fa-regular fa-eye"></i></a>
                             <form action="{{ route('quiz.delete', $quiz->id) }}" method="POST" style="display:inline-block;">
                                 @csrf

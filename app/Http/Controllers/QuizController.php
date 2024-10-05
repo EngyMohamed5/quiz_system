@@ -9,6 +9,7 @@ use App\Models\PerformanceHistory;
 use App\Models\Answer;
 use App\Models\Quiz;
 use App\Models\Topic;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Traits\Uploadimage;
@@ -24,13 +25,21 @@ class QuizController extends Controller
     {
         if($id){
             $topic = Topic::findOrFail($id);
-            $quizzes = $topic->quizzes()->paginate(1);           
-        }else{        
-            $topic = (object) ['name'=>'All']; 
+            $quizzes = $topic->quizzes()->paginate(1);
+        }else{
+            $topic = (object) ['name'=>'All'];
             $quizzes = Quiz::paginate(1);
         }
         return view('website.quizzes.index', compact('topic', 'quizzes'));
-       
+
+    }
+    public function getMonths()
+    {
+        $months = array_combine(
+            ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            range(1, 12)
+        );
+return $months;
     }
 
     public function showQuiz(Quiz $quiz)
@@ -100,10 +109,10 @@ class QuizController extends Controller
             $errorMessages = $e->validator->errors()->all();
             $errorCount = count($errorMessages);
             $errorMessage = "There are {$errorCount} issues with your input.";
-            
+
             // Display error message (using toast, assuming it's a function you have)
             toast($errorMessage, 'error');
-            
+
             // Redirect back to the previous page
             return redirect()->back()->withInput(); // Optionally retain the input
         } catch (\Exception $e) {
@@ -299,5 +308,44 @@ class QuizController extends Controller
         $quizzes=$topic->quizzes;
         return view('Dashboard.quiz.index', compact( 'quizzes'));
 
+    }
+    public function showUsersForQuizForAdmin(Quiz $quiz)
+    {
+        $months = $this->getMonths();
+        $participants = Quiz::with(['performances' => function ($query) {
+            $query->select('id', 'user_id', 'quiz_id','created_at');
+        }, 'performances.user' => function ($query) {
+            $query->select('id', 'name', 'email');
+        }])
+            ->find($quiz->id)
+            ->performances
+            ->map(function ($performance) {
+                $performance->created_at_edited = Carbon::parse($performance->created_at)->format('M j, Y \a\t H:i');
+                $performance->user_name = $performance->user->name;
+                return $performance;
+            })
+            ->sortByDesc('created_at');
+        return view("Dashboard.quiz.participants",compact("participants","quiz","months"));
+    }
+    public function showUsersForQuizForAdminByMonth(Quiz $quiz,$month)
+    {
+        $months = $this->getMonths();
+        $participants = Quiz::with([
+            'performances' => function ($query) use ($month) {
+            $query->select('id', 'user_id', 'quiz_id','created_at')
+                ->whereMonth('created_at', $month);
+            },
+            'performances.user' => function ($query) {
+            $query->select('id', 'name', 'email');
+            }
+            ])->find($quiz->id)
+            ->performances
+            ->map(function ($performance) {
+                $performance->created_at_edited = Carbon::parse($performance->created_at)->format('M j, Y \a\t H:i');
+                $performance->user_name = $performance->user->name;
+                return $performance;
+            })
+            ->sortByDesc('created_at');
+        return view("Dashboard.quiz.participants",compact("participants","quiz","months"));
     }
 }

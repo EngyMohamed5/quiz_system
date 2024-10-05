@@ -87,6 +87,11 @@ Route::middleware(['admin'])->group(function () {
 
     Route::get('admin/quizzes/topics/{topic}', [QuizController::class, 'showQuizzesByTopicForAdmin'])
         ->name('quizzes.by_topic.admin');
+
+    Route::get("/admin/quizzes/{quiz}/participants", [QuizController::class, 'showUsersForQuizForAdmin'])
+        ->name('quizzes.participants');
+    Route::get("/admin/quizzes/{quiz}/participants/{month}", [QuizController::class, 'showUsersForQuizForAdminByMonth'])
+        ->name('quizzes.participants.month');
 });
 /*....................................................................... */
 
@@ -120,6 +125,5 @@ Route::get('/quiz/showresults', [QuizController::class, 'showdata'])
 
     Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
         ->middleware(['auth', 'signed'])->name('verification.verify');
-
 
 require __DIR__ . '/auth.php';

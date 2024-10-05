@@ -102,25 +102,6 @@
                             {{$question->question_type=="multiple_choice"?ucwords(str_replace("_"," ",$question->question_type)):implode("/", array_map('ucfirst', explode("_", $question->question_type)))}}
                         </td>
 
-{{--                        <!-- Correct Answer -->--}}
-{{--                        <td>--}}
-{{--                            @foreach($question->options as $option)--}}
-{{--                                @if($option->is_correct)--}}
-{{--                                    {{ $option->option_text }}--}}
-{{--                                @endif--}}
-{{--                            @endforeach--}}
-{{--                        </td>--}}
-
-{{--                        <!-- Display all options -->--}}
-{{--                        <td>--}}
-{{--                            <ul>--}}
-{{--                                @foreach($question->options as $option)--}}
-{{--                                    <li>{{ $option->option_text }}</li>--}}
-{{--                                @endforeach--}}
-{{--                            </ul>--}}
-{{--                        </td>--}}
-
-                        <!-- Actions: Edit/Delete -->
                         <td class="d-flex justify-content-evenly align-items-center">
                             @if(auth()->check() && auth()->user()->role=="super_admin"||auth()->user()->id==$quiz->created_by)
 
