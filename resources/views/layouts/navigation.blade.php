@@ -53,7 +53,7 @@
                             <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
                                 <div class="rounded-circle overflow-hidden d-flex justify-content-center align-items-center bg-light" style="width: 2em; height:2em;">
                                     @if(isset( auth()->user()->image))
-                                    <img src="{{ asset('public_folder/' . auth()->user()->image) }}" alt="" style="object-fit: cover; width: 100%; height: 100%;">
+                                    <img src="{{ asset('upload_images/' . auth()->user()->image) }}" alt="" style="object-fit: cover; width: 100%; height: 100%;">
                                     @else
                                     <i class="fa-solid fa-user"></i>
                                     @endif
@@ -69,11 +69,11 @@
 
                         <x-slot name="content">
                             <x-dropdown-link :href="route('profile.edit')">
-                                {{ __('Manage Profile') }}
+                                {{ __('Profile') }}
                             </x-dropdown-link>
 
                             <x-dropdown-link :href="route('profile.History')">
-                                {{ __('profileHistory') }}
+                                {{ __('Performance') }}
                             </x-dropdown-link>
 
 

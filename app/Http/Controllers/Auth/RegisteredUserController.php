@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use App\Traits\Uploadimage;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -15,6 +16,7 @@ use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
+    use Uploadimage;
     /**
      * Display the registration view.
      */
@@ -34,11 +36,16 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-
+        $imageName = null;
+        if ($request->hasFile('image')) {
+            $imageName = $this->uploadImage($request, 'image', 'users_images');
+        }
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'image' => $imageName,
             'password' => Hash::make($request->password),
         ]);
 

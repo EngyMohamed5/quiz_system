@@ -5,7 +5,7 @@
         <div class="container1 position-relative z-1 text-center text-white py-5">
             <h1 class="display-4 fw-bold"><span>Welcome to our </span><br>  Online Quiz Platform </h1>
             <p class="lead my-4">Enhance your skills and challenge your abilities with exciting quizzes on a wide range of topics !</p>
-            <a href="#" class="btn btn-lg btn-outline-light">Start a Quiz Now</a>
+            <a  href="{{ route('quizzes.by_topic', 0) }}" class="btn btn-lg btn-outline-light">Start a Quiz Now</a>
         </div>
         
     </section>

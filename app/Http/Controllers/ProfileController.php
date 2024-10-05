@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\PerformanceHistory;
+use App\Models\User;
+use App\Traits\Uploadimage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +14,7 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
+    use Uploadimage;
     /**
      * Display the user's profile form.
      */
@@ -36,6 +39,44 @@ class ProfileController extends Controller
         $request->user()->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    }
+
+    public function update_image(Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        try {
+            $request->validate([
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
+            $imageName = $user->image;
+            if ($request->hasFile('image')) {
+                $path = public_path('upload_images/' . $imageName);
+                if (file_exists($path)) {
+                    try {
+                        unlink($path);
+                    } catch (\Exception $e) {
+
+                        report($e);
+                    }
+                }
+                $folder='';
+                if($user->role!='user')
+                {
+                    $folder="admins_images";
+                }else{
+                    $folder="users_images";
+                }
+                $imageName = $this->uploadImage($request, 'image', $folder);
+            }
+            $user->update([
+                'image' => $imageName,
+            ]);
+            alert()->success('User', 'Your profile picturee updated successfully');
+        } catch (\Exception $e) {
+            alert()->error('User', 'Failed to update profile picture ');
+            return redirect()->back();
+        }
+        return redirect()->back();
     }
 
     /**
