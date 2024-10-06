@@ -224,24 +224,36 @@ return $months;
     }
 
 
-
     public function showdata(Request $request)
     {
+        // الحصول على معرف المستخدم الحالي
         $userId = auth()->id();
-
-
+    
+        // جلب نتائج الأداء
         $results = PerformanceHistory::select('performance_histories.user_id', 'users.name', 'performance_histories.score')
             ->join('users', 'performance_histories.user_id', '=', 'users.id')
             ->get();
-
-
-        $score = $request->input('score');
-        $total = $request->input('total');
-        $percentage = $request->input('percentage');
-
-        return view('quiz.showresults', compact('score', 'total', 'percentage', 'results', 'userId'));
+    
+        // جمع البيانات للرسم البياني
+        $quizTitles = Quiz::pluck('title')->toArray(); // سحب عناوين الاختبارات من قاعدة البيانات
+        $userCounts = [];
+    
+        // احصاء عدد المستخدمين الذين قاموا بالاختبار
+        foreach ($quizTitles as $title) {
+            $quizId = Quiz::where('title', $title)->value('id'); // الحصول على معرف الاختبار
+            $userCounts[] = PerformanceHistory::where('quiz_id', $quizId)->count(); // استخدام quiz_id
+        }
+    
+        // حساب المتوسط ونسبة النجاح
+        $averageScore = PerformanceHistory::avg('score') ?? 0; // التأكد من أن المتوسط قابل للاستخدام
+        $passPercentage = PerformanceHistory::where('score', '>=', 50)->count() / (PerformanceHistory::count() ?: 1) * 100; // تجنب القسمة على صفر
+    
+        // إرجاع النتائج إلى العرض
+        return view('quiz.showresults', compact('results', 'quizTitles', 'userCounts', 'averageScore', 'passPercentage'));
     }
-
+    
+    
+    
     // here i show quiz and delete
     public function index()
     {
@@ -348,4 +360,9 @@ return $months;
             ->sortByDesc('created_at');
         return view("Dashboard.quiz.participants",compact("participants","quiz","months"));
     }
+
+
+    //reports 
+    
+    
 }

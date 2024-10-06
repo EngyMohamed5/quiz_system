@@ -92,6 +92,14 @@ Route::middleware(['admin'])->group(function () {
         ->name('quizzes.participants');
     Route::get("/admin/quizzes/{quiz}/participants/{month}", [QuizController::class, 'showUsersForQuizForAdminByMonth'])
         ->name('quizzes.participants.month');
+    //results-error-dashboard
+    Route::get('/quiz/showresults', [QuizController::class, 'showdata'])
+        ->name('quiz.showresults');
+    //reports 
+
+
+   // Route::post('report/export/pdf', [QuizController::class, 'exportPDF'])->name('report.export.pdf');
+
 });
 /*....................................................................... */
 
@@ -106,7 +114,7 @@ Route::middleware('auth')->group(function () {
 
 
 Route::get('/topics/{topic}', [QuizController::class, 'showQuizzesByTopic'])->name('quizzes.by_topic');
-Route::get('/quiz/{quiz}', [QuizController::class, 'showQuiz'])->name('quiz.show')->middleware(['auth','check.quiz.attempt']);
+Route::get('/quiz/{quiz}', [QuizController::class, 'showQuiz'])->name('quiz.show')->middleware(['auth', 'check.quiz.attempt']);
 
 
 // score routes
@@ -114,16 +122,14 @@ Route::get('/score', [QuizController::class, 'showResults'])->name('score.view')
 Route::post('/submit-quiz', [QuizController::class, 'submitQuiz'])->name('quiz.submit');
 //results
 Route::get('/quiz/results', [QuizController::class, 'showResults'])->name('quiz.results')->middleware('auth');
-//results-error-dashboard
-Route::get('/quiz/showresults', [QuizController::class, 'showdata'])
-    ->name('quiz.showresults');
 
 
-    Route::get('/email/verify', function () {
-        return view('auth.verify-email');
-    })->middleware('auth')->name('verification.notice');
 
-    Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
-        ->middleware(['auth', 'signed'])->name('verification.verify');
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
+    ->middleware(['auth', 'signed'])->name('verification.verify');
 
 require __DIR__ . '/auth.php';

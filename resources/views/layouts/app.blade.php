@@ -30,6 +30,9 @@
 
         <!-- sweetalert2 -->
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- trends --> 
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
         @livewireStyles
        
