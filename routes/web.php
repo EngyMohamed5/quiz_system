@@ -96,6 +96,8 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/quiz/showresults', [QuizController::class, 'showdata'])
         ->name('quiz.showresults');
     //reports 
+    Route::get('/quiz/{quizId}/pdf', [QuizController::class, 'generatePdf'])->name('quiz.pdf');
+
 
 
    // Route::post('report/export/pdf', [QuizController::class, 'exportPDF'])->name('report.export.pdf');
@@ -122,6 +124,7 @@ Route::get('/score', [QuizController::class, 'showResults'])->name('score.view')
 Route::post('/submit-quiz', [QuizController::class, 'submitQuiz'])->name('quiz.submit');
 //results
 Route::get('/quiz/results', [QuizController::class, 'showResults'])->name('quiz.results')->middleware('auth');
+
 
 
 

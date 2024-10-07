@@ -23,6 +23,7 @@
                     <thead class="table-blue">
                         <tr>
                             <th onclick="sortTable(0)">User ID &#x25B2;&#x25BC;</th>
+                            <th onclick="sortTable(0)">quizTitle &#x25B2;&#x25BC;</th>
                             <th onclick="sortTable(1)">Username &#x25B2;&#x25BC;</th>
                             <th onclick="sortTable(2)">Score &#x25B2;&#x25BC;</th>
                         </tr>
@@ -31,6 +32,7 @@
                         @foreach ($results as $result)
                             <tr>
                                 <td>{{ $result->user_id }}</td>
+                                <td>{{ $result->quizTitle }}</td> <!-- Now this works! -->
                                 <td>{{ $result->name }}</td>
                                 <td style="background-color: 
                                     @if ($result->score >= 80) lightgreen 
@@ -41,6 +43,7 @@
                             </tr>
                         @endforeach
                     </tbody>
+                    
                 </table>
             </div>
 

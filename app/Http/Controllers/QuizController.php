@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Mail\AnswerMail;
 use App\Models\Option;
 use App\Models\Question;
@@ -17,6 +18,11 @@ use App\Traits\CheckFile;
 use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Validation\ValidationException;
+use Barryvdh\DomPDF\ServiceProvider as PDF;
+use Illuminate\Support\Facades\Log;
+
+
+
 
 class QuizController extends Controller
 {
@@ -230,9 +236,15 @@ return $months;
         $userId = auth()->id();
     
         // جلب نتائج الأداء
-        $results = PerformanceHistory::select('performance_histories.user_id', 'users.name', 'performance_histories.score')
-            ->join('users', 'performance_histories.user_id', '=', 'users.id')
-            ->get();
+        $results = PerformanceHistory::select(
+            'performance_histories.user_id', 
+            'users.name', 
+            'performance_histories.score',
+            'quizzes.title as quizTitle'
+        )
+        ->join('users', 'performance_histories.user_id', '=', 'users.id')
+        ->join('quizzes', 'performance_histories.quiz_id', '=', 'quizzes.id')
+        ->get();
     
         // جمع البيانات للرسم البياني
         $quizTitles = Quiz::pluck('title')->toArray(); // سحب عناوين الاختبارات من قاعدة البيانات
@@ -363,6 +375,39 @@ return $months;
 
 
     //reports 
+   
+    public function generatePdf($quizId)
+{
+    // Check if the user is authenticated
+    if (!auth()->check()) {
+        return response()->json(['error' => 'User not authenticated.'], 401);
+    }
+
+    // Fetch the quiz title
+    $quiz = Quiz::findOrFail($quizId);
+
+    // Fetch the results: User name and score for the quiz
+    $results = PerformanceHistory::select('performance_histories.user_id', 'users.name', 'performance_histories.score')
+        ->join('users', 'performance_histories.user_id', '=', 'users.id')
+        ->where('performance_histories.quiz_id', $quizId) // Filter by the quiz ID
+        ->get();
+
+    // Prepare data for the PDF
+    $data = [
+        'quizTitle' => $quiz->title,
+        'results' => $results, // Passing the results to the view
+    ];
+
+    // Create a new PDF instance
+    $pdf = app('dompdf.wrapper');
+    $pdf->loadView('pdf.quiz_report', $data);
+    
+    // Return the generated PDF for download
+    return $pdf->download('quiz_report.pdf');
+}
+
+    
+
     
     
 }

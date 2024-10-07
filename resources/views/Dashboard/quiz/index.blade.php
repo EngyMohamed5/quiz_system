@@ -13,17 +13,17 @@
                 </x-slot>
                 <x-slot name="content">
                     <x-dropdown-link  href="{{ route('quiz.index') }}">
-                            All
+                        All
                     </x-dropdown-link>
                     @foreach($topics as $topic)
-                            <x-dropdown-link  href="{{ route('quizzes.by_topic.admin', $topic->id) }}">
-                                {{ $topic->name }}
-                            </x-dropdown-link>
+                        <x-dropdown-link  href="{{ route('quizzes.by_topic.admin', $topic->id) }}">
+                            {{ $topic->name }}
+                        </x-dropdown-link>
                     @endforeach
                 </x-slot>
             </x-dropdown>
-
         </div>
+
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -34,6 +34,7 @@
                     <th>Created By</th>
                     <th>Quiz Type</th>
                     <th>Actions</th>
+                    <th>Download PDF</th> <!-- New Column for PDF -->
                 </tr>
             </thead>
             <tbody>
@@ -46,8 +47,8 @@
                     <td>{{ $quiz->creator["name"] }}</td>
                     <td>{{ ucwords(str_replace("_"," ",$quiz->quiz_type)) }}</td>
                     <td class="d-flex justify-content-evenly px-3 gap-3">
-                        <a href="{{route("quizzes.participants",$quiz->id)}}"> <i class="fa-solid fa-users"></i></a>
-                        @if(auth()->check() && auth()->user()->role=="super_admin"||auth()->user()->id==$quiz->created_by)
+                        <a href="{{ route("quizzes.participants", $quiz->id) }}"> <i class="fa-solid fa-users"></i></a>
+                        @if(auth()->check() && auth()->user()->role == "super_admin" || auth()->user()->id == $quiz->created_by)
                             <a href="{{ route('questions.index', $quiz->id) }}"><i class="fa-regular fa-eye"></i></a>
                             <form action="{{ route('quiz.delete', $quiz->id) }}" method="POST" style="display:inline-block;">
                                 @csrf
@@ -55,14 +56,22 @@
                                 <button type="submit"><i class=" fa-regular fa-trash-can  text-danger "></i></button>
                             </form>
                         @else
-                          <p class="text-secondary">No Action Can Be Took</p>
-                      @endif
+                            <p class="text-secondary">No Action Can Be Took</p>
+                        @endif
                     </td>
-
+                    <!-- PDF Button -->
+                    <td>
+                        <form action="{{ route('quiz.pdf', $quiz->id) }}" method="GET">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa-solid fa-file-pdf"></i> PDF
+                            </button>
+                        </form>
+                    </td>
+                    
+                    
                 </tr>
-            @endforeach
+                @endforeach
             </tbody>
         </table>
     </div>
 </x-dashboard>
-

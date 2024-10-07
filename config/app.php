@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Facade;
 
 
+
+
 return [
 
     /*
@@ -185,6 +187,10 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
        
+        Barryvdh\DomPDF\ServiceProvider::class,
+
+    
+       
 
         /*
          * Package Service Providers...
@@ -215,6 +221,9 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // Add custom aliases here
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+        'PDF' => Barryvdh\DomPDF\ServiceProvider::class, // For DomPDF if you're using it
+
+       
        
         
     ])->toArray(),
