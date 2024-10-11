@@ -7,8 +7,8 @@
         </div>
     </x-slot>
 
-    <div class="container" style="padding-top: 30px;">
-        <h1>Your Performance</h1>
+    <div class="container text-center " style="padding-top: 30px;">
+        <h1 class="text-primary">Your Performance</h1>
         <p>Congratulations! Here are your results:</p>
 
         <!-- Dropdown for filtering attempts -->
@@ -28,9 +28,9 @@
                 <canvas id="performanceChart" width="300" height="150"></canvas> <!-- Reduced size -->
             </div>
 
-
+            <!-- Table of Results -->
             <div class="table-responsive shadow-sm p-3 mb-5 bg-body rounded">
-                <table class="table table-hover table-striped table-bordered text-center align-middle">
+                <table class="table table-hover table-striped table-bordered text-center align-middle" id="resultsTable">
                     <thead class="table-dark">
                         <tr>
                             <th>#</th>
@@ -43,25 +43,22 @@
                     <tbody>
                         @foreach($userResults->groupBy('quiz_id') as $quizId => $results)
                             @foreach($results as $result)
-                            <tr data-attempt-type="{{ $results->count() == 1 ? 'once' : 'multiple' }}" data-attempt-number="{{ $result->attempt_number }}">
+                            <tr class="animate__animated animate__fadeInUp" data-attempt-type="{{ $results->count() == 1 ? 'once' : 'multiple' }}" data-attempt-number="{{ $result->attempt_number }}">
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
-        
-                                    @if(isset( auth()->user()->image))
-                                    <img class="me-3" src="{{ asset('public_folder/' . auth()->user()->image) }}" alt="" style="object-fit: cover; width: 100%; height: 100%;">
+                                    @if(isset(auth()->user()->image))
+                                        <img class="me-3" src="{{ asset('public_folder/' . auth()->user()->image) }}" alt="" style="object-fit: cover; width: 40px; height: 40px;">
                                     @else
-                                    <i class="fa-solid fa-user me-3"></i>
+                                        <i class="fa-solid fa-user me-3"></i>
                                     @endif
-        
                                     {{ $result->name }}
-        
                                 </td>
                                 <td>{{ $result->title }}</td>
                                 <td>
                                     <div class="progress" style="height: 20px;">
-                                        <div class=" progress-bar bg-{{ $result->score >= 75 ? 'success' : ($result->score >= 50 ? 'warning' : 'danger') }}" 
-                                            role="progressbar" style="width: {{ $result->score ? $result->score : 100  }}%;"
-                                            aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar bg-{{ $result->score >= 75 ? 'success' : ($result->score >= 50 ? 'warning' : 'danger') }}" 
+                                             role="progressbar" style="width: {{ $result->score ? $result->score : 100 }}%;"
+                                             aria-valuemin="0" aria-valuemax="100">
                                             {{ $result->score }}%
                                         </div>
                                     </div>
