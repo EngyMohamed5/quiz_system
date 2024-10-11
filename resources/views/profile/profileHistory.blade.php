@@ -28,31 +28,54 @@
                 <canvas id="performanceChart" width="300" height="150"></canvas> <!-- Reduced size -->
             </div>
 
-            <!-- Table of Results -->
-            <table class="table table-striped" id="resultsTable">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Quiz Title</th>
-                        <th>Score</th>
-                        <th>Attempt Number</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($userResults->groupBy('quiz_id') as $quizId => $results)
-                        @foreach($results as $result)
-                        <tr data-attempt-type="{{ $results->count() == 1 ? 'once' : 'multiple' }}" data-attempt-number="{{ $result->attempt_number }}">
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $result->name }}</td>
-                            <td>{{ $result->title }}</td>
-                            <td>{{ $result->score }}%</td>
-                            <td>{{ $result->attempt_number }}</td>
+
+            <div class="table-responsive shadow-sm p-3 mb-5 bg-body rounded">
+                <table class="table table-hover table-striped table-bordered text-center align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Quiz Title</th>
+                            <th>Score (%)</th>
+                            <th>Attempt Number</th>
                         </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($userResults->groupBy('quiz_id') as $quizId => $results)
+                            @foreach($results as $result)
+                            <tr data-attempt-type="{{ $results->count() == 1 ? 'once' : 'multiple' }}" data-attempt-number="{{ $result->attempt_number }}">
+                                <td>{{ $loop->iteration }}</td>
+                                <td>
+        
+                                    @if(isset( auth()->user()->image))
+                                    <img class="me-3" src="{{ asset('public_folder/' . auth()->user()->image) }}" alt="" style="object-fit: cover; width: 100%; height: 100%;">
+                                    @else
+                                    <i class="fa-solid fa-user me-3"></i>
+                                    @endif
+        
+                                    {{ $result->name }}
+        
+                                </td>
+                                <td>{{ $result->title }}</td>
+                                <td>
+                                    <div class="progress" style="height: 20px;">
+                                        <div class=" progress-bar bg-{{ $result->score >= 75 ? 'success' : ($result->score >= 50 ? 'warning' : 'danger') }}" 
+                                            role="progressbar" style="width: {{ $result->score ? $result->score : 100  }}%;"
+                                            aria-valuemin="0" aria-valuemax="100">
+                                            {{ $result->score }}%
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <i class="fas fa-sync-alt" data-bs-toggle="tooltip" data-bs-placement="top" title="Attempt Number"></i> 
+                                    {{ $result->attempt_number }}
+                                </td>
+                            </tr>
+                            @endforeach
                         @endforeach
-                    @endforeach
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         @endif
     </div>
 
