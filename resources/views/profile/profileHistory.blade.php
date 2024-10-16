@@ -45,12 +45,15 @@
                             @foreach($results as $result)
                             <tr class="animate__animated animate__fadeInUp" data-attempt-type="{{ $results->count() == 1 ? 'once' : 'multiple' }}" data-attempt-number="{{ $result->attempt_number }}">
                                 <td>{{ $loop->iteration }}</td>
-                                <td>
-                                    @if(isset(auth()->user()->image))
-                                        <img class="me-3" src="{{ asset('public_folder/' . auth()->user()->image) }}" alt="" style="object-fit: cover; width: 40px; height: 40px;">
-                                    @else
-                                        <i class="fa-solid fa-user me-3"></i>
-                                    @endif
+                                <td class="d-flex justify-content-center align-items-center">                                    
+                                    <div class="rounded-circle overflow-hidden d-flex justify-content-center align-items-center bg-light me-3 " style="width: 2em; height:2em;"> 
+                                        @if(isset(auth()->user()->image))                                      
+                                        <img src="{{ asset('upload_images/' . auth()->user()->image) }}" alt="" style="object-fit: cover; width: 100%; height: 100%;">
+                                        @else
+                                        <i class="fa-solid fa-user "></i>
+                                        @endif
+                                    </div>
+                                    
                                     {{ $result->name }}
                                 </td>
                                 <td>{{ $result->title }}</td>

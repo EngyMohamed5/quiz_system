@@ -88,12 +88,61 @@
                         </x-slot>
                     </x-dropdown>
                 @else
-                    <x-nav-link :href="route('login')">
+                    {{-- <x-nav-link :href="route('login')">
                         {{ __('Login') }}
                     </x-nav-link>
                     <x-nav-link :href="route('register')">
                         {{ __('Register') }}
-                    </x-nav-link>
+                    </x-nav-link> --}}
+
+
+                    <style>
+                        .button-container {
+                            display: flex;
+                            gap: 10px;
+                            padding: 10px;
+                            background: rgb(0, 123, 255,0.2);
+                            backdrop-filter: blur(10px);
+                            border-radius: 50px;
+                            padding: 5px;
+                        }
+                
+                        .btn-custom {
+                            padding: 8px 18px;
+                            border-radius: 20px;
+                            font-size: 14px;
+                            font-weight: 500;
+                        }
+                
+                        .btn-login {
+                            background-color: #ffffff;
+                            color: #007bff;
+                            border: 1px solid #007bff;
+                        }
+                
+                        .btn-login:hover {
+                            background-color: #007bff;
+                            color: white;
+                        }
+                
+                        .btn-register {
+                            background-color: #007bff;
+                            color: white;
+                        }
+                
+                        .btn-register:hover {
+                            background-color: #0056b3;
+                        }
+                    </style>
+
+
+                    <div class="d-flex justify-content-center">
+                        <div class="button-container">
+                            <button class="btn btn-custom btn-login">Login</button>
+                            <button class="btn btn-custom btn-register">Register</button>
+                        </div>
+                    </div>
+                    
                 @endauth
             </div>
 
