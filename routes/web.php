@@ -32,7 +32,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->name('dashboard')->middleware(['auth', 'verified']);
+})->name('dashboard');
 
 
 Route::resource('topics', TopicController::class)->middleware('admin');

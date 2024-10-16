@@ -15,13 +15,15 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link  :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Home') }}
-                    </x-nav-link>
-                   
-                </div>
+                    </x-nav-link>  
+                    {{-- <x-nav-link  :href="'#about-us'" :active="request()->routeIs('dashboard')">
+                        {{ __('About Us') }}
+                    </x-nav-link>                --}}
                 
                 <!-- Topics Dropdown -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                
                     <div class="dropdown">
+
                         <x-nav-link  class="dropdown-toggle" :href="route('dashboard')" :active="request()->routeIs('quizzes.by_topic')"  role="button" id="topicsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             {{ __('Topics') }}
                         </x-nav-link>
@@ -94,10 +96,6 @@
                     <x-nav-link :href="route('register')">
                         {{ __('Register') }}
                     </x-nav-link> --}}
-
-
-
-
 
                     <div class="d-flex justify-content-center">
                         <div class="button-container">

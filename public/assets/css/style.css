@@ -117,6 +117,7 @@ body {
 
 .cta-section {
     background-color: #ffffff;
+    padding: 6em 0 ;
 }
 
 
@@ -170,3 +171,66 @@ footer {
     background-color: #0056b3;
 }                       
                     
+/* //////////////////////////////////////////////////////////////// */
+.features-section{
+    padding: 7em 0 ;
+}
+
+/* //////////////////////////////////////// */
+#about-us {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)) , url("https://images.pexels.com/photos/3183186/pexels-photo-3183186.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    
+    padding: 80px 0;
+
+  }
+
+  #about-us h2 {
+    font-size: 3rem;
+    font-weight: 700;
+  }
+
+  #about-us p {
+    font-size: 1.1rem;
+  }
+
+  .icon-box {
+    width: 23em;
+    height: 23em;
+    padding: 3em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .icon-box:hover {
+    transform: translateY(-10px);
+  }
+
+  .icon-box i {
+    color: #007bff;
+    margin-bottom: 15px;
+  }
+
+  .icon-box h5 {
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  .icon-box p {
+    font-size: 1rem;
+    color: #6c757d;
+  }
+
+  @media (max-width: 768px) {
+    #about-us h2 {
+      font-size: 2rem;
+    }
+  }

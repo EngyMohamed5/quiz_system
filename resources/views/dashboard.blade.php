@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <section class="hero-section bg-info">
+    <section class="hero-section bg-info ">
         <div class="overlay position-absolute top-0 start-0 w-100 h-100"></div>
         <div class="container1 position-relative z-1 text-center text-white py-5">
             <h1 class="display-4 fw-bold"><span>Welcome to our </span><br>  Online Quiz Platform </h1>
@@ -10,7 +10,7 @@
         
     </section>
 
-    <section class="features-section py-5">
+    <section class="features-section">
         <div class="container">
             <h2 class="text-center mb-4 mb-5">Why Choose Our Quiz Platform?</h2>
             <div class="row text-center">
@@ -50,10 +50,52 @@
             </div>
         </div>
     </section>
-
-    @if (!auth()->check())
+   
+<section id="about-us" class="py-5 bg-light">
+    <div class="container">
+      <div class="row justify-content-center text-center">
+        <div class="col-lg-8 col-md-10">
+          <h2 class="mb-4 display-4 font-weight-bold text-light">About Us</h2>
+        </div>
+      </div>
+  
+      <div class=" d-flex flex-lg-row flex-column justify-content-between align-items-center mt-4">
         
-        <section class="cta-section text-center py-5">
+        <div class=" text-center mb-3">
+          <div class="icon-box">
+            <i class="fas fa-graduation-cap fa-3x text-primary mb-3"></i>
+            <h5 class="mb-3">Our Mission</h5>
+            <p class="text-muted">
+                To make learning interactive, and accessible for everyone through our quiz platform, empowering individuals to enhance their knowledge and skills.
+            </p>
+          </div>
+        </div>
+  
+        <div class="text-center mb-3">
+          <div class="icon-box">
+            <i class="fas fa-lightbulb fa-3x text-primary mb-3"></i>
+            <h5 class="mb-3">Our Vision</h5>
+            <p class="text-muted">
+                To inspire lifelong learning and personal growth by providing users with engaging, meaningful, and enjoyable quizzes that enhance knowledge.
+            </p>
+          </div>
+        </div>
+  
+        <div class=" text-center mb-3">
+            <div class="icon-box">
+                <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                <h5 class="mb-3">Our Team</h5>
+                <p class="text-muted">
+                    We are a team at the Digital Egypt Pioneers Initiative. we collaborate to develop solutions that make learning more interactive for everyone.
+                </p>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  @if (!auth()->check())     
+        <section class="cta-section text-center">
             <div class="container">
                 <h2 class="display-5 fw-bold mb-4">Ready to Test Your Knowledge?</h2>
                 <p class="lead">Sign up or log in to take a quiz and track your progress!</p>
@@ -61,5 +103,6 @@
             </div>
         </section>
     @endif
+  
     
 </x-app-layout>
