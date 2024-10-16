@@ -101,8 +101,8 @@
 
                     <div class="d-flex justify-content-center">
                         <div class="button-container">
-                            <button class=" btn-custom btn-login">Login</button>
-                            <button class=" btn-custom btn-register">Register</button>
+                            <a href="{{ route('login') }}" class=" text-decoration-none btn-custom btn-login">Login</a>
+                            <a href="{{ route('register') }}" class=" text-decoration-none btn-custom btn-register">Register</a>
                         </div>
                     </div>
                     
