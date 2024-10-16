@@ -98,10 +98,11 @@
 
 
 
+
                     <div class="d-flex justify-content-center">
                         <div class="button-container">
-                            <button class="btn btn-custom btn-login">Login</button>
-                            <button class="btn btn-custom btn-register">Register</button>
+                            <button class=" btn-custom btn-login">Login</button>
+                            <button class=" btn-custom btn-register">Register</button>
                         </div>
                     </div>
                     
