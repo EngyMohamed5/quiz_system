@@ -34,26 +34,37 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
+// Group routes that share the 'admin' middleware
+Route::middleware(['admin'])->group(function () {
+    // Resource routes for topics
+    Route::resource('topics', TopicController::class);
 
-Route::resource('topics', TopicController::class)->middleware('admin');
+    // Admin dashboard route
+    Route::get('/admin', [DashboardController::class, 'index'])
+        ->name('admin.dashboard');
 
-Route::get('/admin', [DashboardController::class, 'index'])
-    ->name('admin.dashboard')
-    ->middleware('admin');
+    // Admin-related routes
+    Route::get('admins/showall', [AdminController::class, 'alladmins'])
+        ->name('admins.showall');
 
-Route::post('users/search', [AdminController::class, 'SearchForUser'])
-    ->name('users.search');
+    Route::resource('admins', AdminController::class);
 
-Route::get('admins/showall', [AdminController::class, 'alladmins'])
-    ->name('admins.showall')->middleware('admin');
+    // User-related routes for admin
+    Route::get('users', [AdminController::class, 'getusers'])
+        ->name('users.showall');
 
-Route::get('users', [AdminController::class, 'getusers'])
-    ->name('users.showall')->middleware('admin');
+    Route::get('users/showall', [AdminController::class, 'allusers'])
+        ->name('allusers.showall');
 
-Route::get('users/showall', [AdminController::class, 'allusers'])
-    ->name('allusers.showall')->middleware('admin');
+    //results
+    Route::get('/quiz/results', [QuizController::class, 'showResults'])->name('quiz.results');
 
-Route::resource('admins', AdminController::class)->middleware('admin');
+    // display quiz 
+    Route::get('/quiz/{quiz}', [QuizController::class, 'showQuiz'])->name('quiz.show')->middleware('check.quiz.attempt');
+});
+
+
+
 Route::resource('admins', AdminController::class)->only(['create', 'store'])->middleware('super_admin');
 
 /*....................................................................... */
@@ -100,7 +111,7 @@ Route::middleware(['admin'])->group(function () {
 
 
 
-   // Route::post('report/export/pdf', [QuizController::class, 'exportPDF'])->name('report.export.pdf');
+    // Route::post('report/export/pdf', [QuizController::class, 'exportPDF'])->name('report.export.pdf');
 
 });
 /*....................................................................... */
@@ -116,14 +127,12 @@ Route::middleware('auth')->group(function () {
 
 
 Route::get('/topics/{topic}', [QuizController::class, 'showQuizzesByTopic'])->name('quizzes.by_topic');
-Route::get('/quiz/{quiz}', [QuizController::class, 'showQuiz'])->name('quiz.show')->middleware(['auth', 'check.quiz.attempt']);
 
 
 // score routes
 Route::get('/score', [QuizController::class, 'showResults'])->name('score.view');
 Route::post('/submit-quiz', [QuizController::class, 'submitQuiz'])->name('quiz.submit');
-//results
-Route::get('/quiz/results', [QuizController::class, 'showResults'])->name('quiz.results')->middleware('auth');
+
 
 
 
