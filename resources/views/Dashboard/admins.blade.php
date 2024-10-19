@@ -15,14 +15,16 @@
         @foreach($admins as $admin)
         <div class="card mb-3 text-wrap">
             <div class=" d-flex overflow-hidden">
-               
-                <div class="col-4 d-flex  align-items-center  " >
-                    @if($admin->image)  
-                    <img src="{{ asset('upload_images/' . $admin->image) }}" class="img-fluid rounded-start h-100"
-                        alt="admin image">
-                        @endif
+
+                <div class="col-4 d-flex align-items-center">
+                    @if($admin->image)
+                        <img src="{{ asset('upload_images/' . $admin->image) }}" class="img-fluid rounded-start h-100" style="padding:10px;" alt="Admin image">
+                    @else
+                        <img src="{{ asset('upload_images/admins_images/profile.PNG') }}" class="img-fluid rounded-start h-100" style="padding:10px;" alt="default profile image">
+                    @endif
                 </div>
-               
+
+
 
                 <div class="col-8 d-flex flex-column  ">
                     <div class="card-body">
@@ -52,7 +54,7 @@
 
                         <p class="card-text">{{$admin->email}}</p>
                         <p class="card-text">{{$admin->role}}</p>
-                        
+
 
                     </div>
 
