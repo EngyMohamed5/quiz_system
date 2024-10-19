@@ -35,29 +35,32 @@ Route::get('/dashboard', function () {
 })->middleware('verified_if_authenticated')->name('dashboard');
 
 
-Route::resource('topics', TopicController::class)->middleware('admin');
-
-Route::get('/admin', [DashboardController::class, 'index'])
-    ->name('admin.dashboard')
-    ->middleware('admin');
-
-Route::post('users/search', [AdminController::class, 'SearchForUser'])
-    ->name('users.search');
-
-Route::get('admins/showall', [AdminController::class, 'alladmins'])
-    ->name('admins.showall')->middleware('admin');
-
-Route::get('users', [AdminController::class, 'getusers'])
-    ->name('users.showall')->middleware('admin');
-
-Route::get('users/showall', [AdminController::class, 'allusers'])
-    ->name('allusers.showall')->middleware('admin');
-
-Route::resource('admins', AdminController::class)->middleware('admin');
 Route::resource('admins', AdminController::class)->only(['create', 'store'])->middleware('super_admin');
 
 /*....................................................................... */
 Route::middleware(['admin'])->group(function () {
+
+
+    Route::resource('topics', TopicController::class);
+
+    Route::get('/admin', [DashboardController::class, 'index'])
+        ->name('admin.dashboard');
+
+    Route::post('users/search', [AdminController::class, 'SearchForUser'])
+        ->name('users.search');
+
+    Route::get('admins/showall', [AdminController::class, 'alladmins'])
+        ->name('admins.showall');
+
+    Route::get('users', [AdminController::class, 'getusers'])
+        ->name('users.showall');
+
+    Route::get('users/showall', [AdminController::class, 'allusers'])
+        ->name('allusers.showall');
+
+    Route::resource('admins', AdminController::class);
+
+
     // Quiz Creation
     Route::get('admin/createQuiz', [AdminController::class, 'createQuizPage'])
         ->name('admin.CreateQuiz');
@@ -95,7 +98,7 @@ Route::middleware(['admin'])->group(function () {
     //results-error-dashboard
     Route::get('/quiz/showresults', [QuizController::class, 'showdata'])
         ->name('quiz.showresults');
-    //reports 
+    //reports
     Route::get('/quiz/{quizId}/pdf', [QuizController::class, 'generatePdf'])->name('quiz.pdf');
 
 
