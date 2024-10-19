@@ -5,7 +5,7 @@
         .profile-img {
             width: 150px;
             height: 150px;
-            object-fit: cover; /* Ensures the image fills the container without distortion */
+            object-fit: cover; 
             padding: 10px;
         }
     </style>
