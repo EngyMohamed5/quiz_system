@@ -60,7 +60,7 @@
                         </div>
 
                         <p class="card-text">{{$admin->email}}</p>
-                        <p class="card-text">{{$admin->role}}</p>
+                        <p class="card-text">{{ucwords(str_replace("_"," ",$admin->role))}}</p>
                     </div>
                 </div>
 
