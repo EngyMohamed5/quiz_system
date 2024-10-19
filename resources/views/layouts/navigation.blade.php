@@ -151,8 +151,9 @@
         </div>
 
         <!-- Responsive Settings Options -->
-        @auth
+       
             <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+                @auth
                 <div class="px-4">
                     <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
                     <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
@@ -162,6 +163,11 @@
                     <x-responsive-nav-link :href="route('profile.edit')">
                         {{ __('Profile') }}
                     </x-responsive-nav-link>
+
+                    <x-responsive-nav-link :href="route('profile.History')">
+                        {{ __('Performance') }}
+                    </x-responsive-nav-link>
+
 
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}">
@@ -173,7 +179,16 @@
                         </x-responsive-nav-link>
                     </form>
                 </div>
+                @endauth
+                @guest
+                <div class="d-flex justify-content-center">
+                    <div class="button-container">
+                        <a href="{{ route('login') }}" class=" text-decoration-none btn-custom btn-login">Login</a>
+                        <a href="{{ route('register') }}" class=" text-decoration-none btn-custom btn-register">Register</a>
+                    </div>
+                </div>
+                @endguest
             </div>
-        @endauth
+       
     </div>
 </nav>
