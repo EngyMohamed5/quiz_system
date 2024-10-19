@@ -60,7 +60,6 @@
                 </li>
 
                 {{-- topics --}}
-
                 <li class="text-decoration-none px-3 py-2 d-block text-primary">Topics</li>
                 <li class="{{Route::is('topics.create') ? 'active' : '' }}"><a href="{{route('topics.create')}}"
                         class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
@@ -89,17 +88,17 @@
                     </a>
                 </li>
 
-                {{--                results    --}}
+                {{--     results    --}}
                 <li class="text-decoration-none px-3 py-2 d-block text-primary">Results</li>
                 <li class="{{Route::is('quiz.showresults') ? 'active' : '' }}">
                     <a href="{{ route('quiz.showresults') }}"
                        class="text-decoration-none px-3 py-2 d-block d-flex justify-content-between">
-                        <span>Show Results</span>
+                        <span>Performance Summary</span>
                     </a>
-                    
+
                 </li>
-             
-             
+
+
 
                 {{-- admins --}}
                 <li class="text-decoration-none px-3 py-2 d-block text-primary">Admins</li>
@@ -200,7 +199,7 @@
 </body>
 <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('assets/js/all.min.js') }}"></script>
-{{--<script src="{{ asset('assets\js\jsfile.js') }}"></script>--}}
+<script src="{{ asset('assets/js/jsfile.js') }}"></script>
 
 @yield("js_files")
 </html>
