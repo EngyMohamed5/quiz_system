@@ -4,12 +4,12 @@
     <body>
 
         <div class="container mt-5">
-           
+
 
             <!-- Performance Summary -->
             <div class="mb-4 text-center">
                 <h3>Performance Summary</h3>
-                <p><strong>Pass Percentage for all users:</strong> {{ $passPercentage }}%</p>
+                <p><strong>Pass Percentage for all users:</strong> {{ number_format( $passPercentage, 2)}}%</p>
             </div>
 
             <!-- Search Bar -->
@@ -34,16 +34,16 @@
                                 <td>{{ $result->user_id }}</td>
                                 <td>{{ $result->quizTitle }}</td> <!-- Now this works! -->
                                 <td>{{ $result->name }}</td>
-                                <td style="background-color: 
-                                    @if ($result->score >= 80) lightgreen 
-                                    @elseif ($result->score >= 50) lightyellow 
+                                <td style="background-color:
+                                    @if ($result->score >= 80) lightgreen
+                                    @elseif ($result->score >= 50) lightyellow
                                     @else lightcoral @endif;">
                                     {{ $result->score }}%
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
-                    
+
                 </table>
             </div>
 
