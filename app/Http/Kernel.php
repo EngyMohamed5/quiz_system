@@ -67,6 +67,7 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\AdminCheck::class,
         'super_admin' => \App\Http\Middleware\SuperAdmin::class,
         'check.quiz.attempt' => \App\Http\Middleware\CheckQuizAttempt::class,
+        'verified_if_authenticated' => \App\Http\Middleware\VerifyIfAuthenticated::class,
         
     ];
 }

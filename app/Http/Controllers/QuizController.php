@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Validation\ValidationException;
 use Barryvdh\DomPDF\ServiceProvider as PDF;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 
 
@@ -31,7 +32,7 @@ class QuizController extends Controller
     {
         if($id){
             $topic = Topic::findOrFail($id);
-            $quizzes = $topic->quizzes()->paginate(2);
+            $quizzes = $topic->quizzes()->paginate(3);
         }else{
             $topic = (object) ['name'=>'All'];
             $quizzes = Quiz::paginate(3);
@@ -51,7 +52,13 @@ return $months;
 
     public function showQuiz(Quiz $quiz)
     {
-        return view('website.quizzes.show', compact('quiz'));
+        $questions = $quiz->questions ;
+        $questions->each(function ($question) {
+            $question->options = $question->options->shuffle(); 
+        });        
+        $questions= $questions->shuffle();
+        // dd($questoins);
+        return view('website.quizzes.show', compact('quiz','questions'));
     }
 
     public function addQuestions(array $QuestionsData, Quiz $quiz,Request $request=null)

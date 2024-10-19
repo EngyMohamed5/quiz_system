@@ -12,7 +12,7 @@
             document.getElementById('poll-container').removeAttribute('wire:poll.1000ms');
             Swal.fire({
                 icon: 'inTime is up!',
-                text: 'Yourfo',
+                text: 'Time is Up!',
                 title: ' quiz has ended.',
                 confirmButtonText: 'OK',
                 allowOutsideClick: false, 

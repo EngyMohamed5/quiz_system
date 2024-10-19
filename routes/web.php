@@ -27,12 +27,13 @@ use App\Http\Controllers\Auth\ResendVerificationEmailController;
 
 Route::get('/', function () {
     return view('dashboard');
-});
+})->middleware('verified_if_authenticated');
 
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->name('dashboard')->middleware('verified');
+})->name('dashboard')->middleware('verified_if_authenticated');
+
 
 // Group routes that share the 'admin' middleware
 Route::middleware(['admin'])->group(function () {
@@ -56,11 +57,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('users/showall', [AdminController::class, 'allusers'])
         ->name('allusers.showall');
 
-    //results
-    Route::get('/quiz/results', [QuizController::class, 'showResults'])->name('quiz.results');
 
-    // display quiz 
-    Route::get('/quiz/{quiz}', [QuizController::class, 'showQuiz'])->name('quiz.show')->middleware('check.quiz.attempt');
 });
 
 
@@ -123,6 +120,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::patch('/profile/image', [ProfileController::class, 'update_image'])->name('profile.update_image');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    //results
+    Route::get('/quiz/results', [QuizController::class, 'showResults'])->name('quiz.results');
+    // display quiz 
+    Route::get('/quiz/{quiz}', [QuizController::class, 'showQuiz'])->middleware('check.quiz.attempt')->name('quiz.show');
+
 });
 
 
