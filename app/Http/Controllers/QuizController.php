@@ -31,14 +31,15 @@ class QuizController extends Controller
     {
         if($id){
             $topic = Topic::findOrFail($id);
-            $quizzes = $topic->quizzes()->paginate(1);
+            $quizzes = $topic->quizzes()->paginate(2);
         }else{
             $topic = (object) ['name'=>'All'];
-            $quizzes = Quiz::paginate(1);
+            $quizzes = Quiz::paginate(2);
         }
         return view('website.quizzes.index', compact('topic', 'quizzes'));
 
     }
+    
     public function getMonths()
     {
         $months = array_combine(

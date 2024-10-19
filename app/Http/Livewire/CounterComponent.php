@@ -19,6 +19,7 @@ class CounterComponent extends Component
     {
         $quiz = Quiz::findOrFail($quizId);
         $this->timeLimit = $quiz->time_limit * 60; 
+
         $this->remainingTime = $this->timeLimit;
         $this->endTime = Carbon::now()->addSeconds($this->timeLimit);
     }
@@ -26,20 +27,19 @@ class CounterComponent extends Component
     public function tick()
     {
         $now = Carbon::now();
-       
 
         if ($this->remainingTime > 0) {
             $this->remainingTime =  $now->diffInSeconds($this->endTime, false); 
-            
+        
         } else {
             $this->emit('quizTimeEnded'); 
         }
        
     }
 
-    public function submitQuiz(){
-        // return redirect()->route()-
-    }
+    // public function submitQuiz(){
+    //     // return redirect()->route()-
+    // }
 
     public function render()
     {

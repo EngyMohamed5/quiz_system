@@ -11,9 +11,9 @@
         Livewire.on('quizTimeEnded', function () {
             document.getElementById('poll-container').removeAttribute('wire:poll.1000ms');
             Swal.fire({
-                icon: 'info',
-                title: 'Time is up!',
-                text: 'Your quiz has ended.',
+                icon: 'inTime is up!',
+                text: 'Yourfo',
+                title: ' quiz has ended.',
                 confirmButtonText: 'OK',
                 allowOutsideClick: false, 
                 allowEscapeKey: false,    
