@@ -32,7 +32,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->name('dashboard');
+})->name('dashboard')->middleware( 'verified');
 
 // Group routes that share the 'admin' middleware
 Route::middleware(['admin'])->group(function () {
