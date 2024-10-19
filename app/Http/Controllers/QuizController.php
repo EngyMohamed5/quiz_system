@@ -34,7 +34,7 @@ class QuizController extends Controller
             $quizzes = $topic->quizzes()->paginate(2);
         }else{
             $topic = (object) ['name'=>'All'];
-            $quizzes = Quiz::paginate(2);
+            $quizzes = Quiz::paginate(3);
         }
         return view('website.quizzes.index', compact('topic', 'quizzes'));
 
