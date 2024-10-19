@@ -27,41 +27,33 @@ use App\Http\Controllers\Auth\ResendVerificationEmailController;
 
 Route::get('/', function () {
     return view('dashboard');
-})->middleware('verified_if_authenticated');
+})->middleware('verified_if_authenticated');;
 
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->name('dashboard')->middleware('verified_if_authenticated');
+})->middleware('verified_if_authenticated')->name('dashboard');
 
 
-// Group routes that share the 'admin' middleware
-Route::middleware(['admin'])->group(function () {
-    // Resource routes for topics
-    Route::resource('topics', TopicController::class);
+Route::resource('topics', TopicController::class)->middleware('admin');
 
-    // Admin dashboard route
-    Route::get('/admin', [DashboardController::class, 'index'])
-        ->name('admin.dashboard');
+Route::get('/admin', [DashboardController::class, 'index'])
+    ->name('admin.dashboard')
+    ->middleware('admin');
 
-    // Admin-related routes
-    Route::get('admins/showall', [AdminController::class, 'alladmins'])
-        ->name('admins.showall');
+Route::post('users/search', [AdminController::class, 'SearchForUser'])
+    ->name('users.search');
 
-    Route::resource('admins', AdminController::class);
+Route::get('admins/showall', [AdminController::class, 'alladmins'])
+    ->name('admins.showall')->middleware('admin');
 
-    // User-related routes for admin
-    Route::get('users', [AdminController::class, 'getusers'])
-        ->name('users.showall');
+Route::get('users', [AdminController::class, 'getusers'])
+    ->name('users.showall')->middleware('admin');
 
-    Route::get('users/showall', [AdminController::class, 'allusers'])
-        ->name('allusers.showall');
+Route::get('users/showall', [AdminController::class, 'allusers'])
+    ->name('allusers.showall')->middleware('admin');
 
-
-});
-
-
-
+Route::resource('admins', AdminController::class)->middleware('admin');
 Route::resource('admins', AdminController::class)->only(['create', 'store'])->middleware('super_admin');
 
 /*....................................................................... */
@@ -108,7 +100,7 @@ Route::middleware(['admin'])->group(function () {
 
 
 
-    // Route::post('report/export/pdf', [QuizController::class, 'exportPDF'])->name('report.export.pdf');
+   // Route::post('report/export/pdf', [QuizController::class, 'exportPDF'])->name('report.export.pdf');
 
 });
 /*....................................................................... */
@@ -120,21 +112,18 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::patch('/profile/image', [ProfileController::class, 'update_image'])->name('profile.update_image');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    //results
-    Route::get('/quiz/results', [QuizController::class, 'showResults'])->name('quiz.results');
-    // display quiz 
-    Route::get('/quiz/{quiz}', [QuizController::class, 'showQuiz'])->middleware('check.quiz.attempt')->name('quiz.show');
-
 });
 
 
 Route::get('/topics/{topic}', [QuizController::class, 'showQuizzesByTopic'])->name('quizzes.by_topic');
+Route::get('/quiz/{quiz}', [QuizController::class, 'showQuiz'])->name('quiz.show')->middleware(['auth', 'check.quiz.attempt']);
 
 
 // score routes
 Route::get('/score', [QuizController::class, 'showResults'])->name('score.view');
 Route::post('/submit-quiz', [QuizController::class, 'submitQuiz'])->name('quiz.submit');
-
+//results
+Route::get('/quiz/results', [QuizController::class, 'showResults'])->name('quiz.results')->middleware('auth');
 
 
 
